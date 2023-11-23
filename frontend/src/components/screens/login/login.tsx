@@ -3,9 +3,13 @@ import { ButtonTextButton } from "../../ButtonTextButton";
 import { TextfieldLabel } from "../../TextfieldLabel";
 import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
 
+import { useNavigate } from "react-router-dom";
+
 import "../../../App.css";
 
 export const Login = (): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <div className="App overflow-hidden">
       <div className="bg-[#363740] flex flex-row justify-center w-full h-full min-h-screen">
@@ -19,6 +23,7 @@ export const Login = (): JSX.Element => {
                 btnLabelClassName="!text-mainblue !tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[51px]"
                 className="!absolute !left-[150px] !w-[79px] !top-0"
                 text="Sign Up"
+                onClick={() => navigate("/")}
               />
             </div>
             <ButtonContained

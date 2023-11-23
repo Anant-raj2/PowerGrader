@@ -2,7 +2,11 @@ import { ButtonTextButton } from "../../ButtonTextButton";
 import { TextfieldLabel } from "../../TextfieldLabel";
 import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
 
+import { useNavigate } from "react-router-dom";
+
 export const SignUp = (): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-[#363740] flex flex-row justify-center w-full">
       <div className="bg-sidebar-bg w-[1512px] h-[982px]">
@@ -15,6 +19,7 @@ export const SignUp = (): JSX.Element => {
               <ButtonTextButton
                 btnLabelClassName="!text-mainblue !tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[51px]"
                 className="!absolute !left-[171px] !w-[51px] !top-0"
+                onClick={() => navigate("/login")}
                 text="Log in"
               />
             </div>
