@@ -1,0 +1,1 @@
+export { TextfieldLabelIcon } from "./TextfieldLabelcon";
