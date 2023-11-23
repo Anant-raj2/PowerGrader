@@ -1,6 +1,7 @@
 import {InferSchemaType, Schema, model} from "mongoose";
 
 const ClassSchema = new Schema({
+    student: {type: String, required: false},
     class1: {type: String, required: true},
     class2: {type: String, required: true},
     class3: {type: String, required: true},

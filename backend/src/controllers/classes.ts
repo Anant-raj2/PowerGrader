@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import ClassModel from "../models/class";
+import UserModel from "../models/user";
 import createHttpError from "http-errors";
 
 interface ClassBody{
@@ -13,6 +14,8 @@ interface ClassBody{
     class8?: string,
 }
 export const postClasses: RequestHandler<unknown, unknown, ClassBody, unknown> = async (req, res, next) => {
+    const userId = req.session;
+    const student = userId.userId;
     const class1 = req.body.class1;
     const class2 = req.body.class2;
     const class3 = req.body.class3;
@@ -23,11 +26,16 @@ export const postClasses: RequestHandler<unknown, unknown, ClassBody, unknown> =
     const class8 = req.body.class8;
 
     try{
-        if(!class1 || !class2 || !class3 || !class4 || !class5 || !class6 || !class7 || !class8){
+
+        console.log(student);
+        const studentId = UserModel.findOne({userId: student}).select("+studentId").exec();
+        console.log(JSON.stringify(studentId));
+        if(!student||!class1 || !class2 || !class3 || !class4 || !class5 || !class6 || !class7 || !class8){
             throw createHttpError(400, "Parameters are missing");
         }
 
         const newClass = await ClassModel.create({
+            student: student,
             class1: class1,
             class2: class2,
             class3: class3,
@@ -39,6 +47,15 @@ export const postClasses: RequestHandler<unknown, unknown, ClassBody, unknown> =
         });
 
         res.status(201).json(newClass);
+    }catch(error){
+        next(error);
+    }
+}
+
+export const getClasses: RequestHandler = async (req, res, next) => {
+    try{
+        const classes = await ClassModel.find();
+        res.json(classes);
     }catch(error){
         next(error);
     }
