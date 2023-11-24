@@ -3,8 +3,7 @@ import * as GradesController from "../controllers/grades";
 
 const router = express.Router();
 
-router.get("/", GradesController.getGrades);
-router.post("/post", GradesController.postGrades);
-
+router.get("/", GradesController.getAcademics);
+router.post("/post", GradesController.postAcademics);
 
 export default router;

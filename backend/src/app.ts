@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express, {NextFunction, Request, Response} from "express";
 import usersRoutes from "./routes/users";
-import classesRoutes from "./routes/classes";
 import gradesRoutes from "./routes/grades";
 import session from "express-session";
 import env from "./util/validateEnv";
@@ -26,7 +25,6 @@ app.use(session({
 }));
 
 app.use("/api/users", usersRoutes);
-app.use("/api/classes", classesRoutes);
 app.use("/api/grades", gradesRoutes);
 
 
