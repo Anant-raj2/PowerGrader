@@ -70,8 +70,13 @@
   --sidebar-gray: rgba(164, 166, 179, 1);
 }
 
-body,
-html {
+body.auth-page html.auth-page {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body html {
   height: 100%;
   margin: 0;
   padding: 0;
