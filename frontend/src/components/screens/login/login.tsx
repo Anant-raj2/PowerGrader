@@ -2,13 +2,40 @@ import { ButtonContained } from "../../ButtonContained";
 import { ButtonTextButton } from "../../ButtonTextButton";
 import { TextfieldLabel } from "../../TextfieldLabel";
 import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
-
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 import "../../../App.css";
+declare const google: any;
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
+  function handleCallbackResponse(response: any) {
+    console.log(response.credential);
+
+    var userObject = jwtDecode(response.credential);
+    console.log(userObject);
+  }
+  interface User {
+    picture: string;
+    name: string;
+    // other properties...
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "360114089145-p3ua4ks0v3stme5npq3c5uq9k1g3gc9k.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("loginDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
 
   return (
     <div className="App  auth-page">
@@ -35,8 +62,8 @@ export const Login = (): JSX.Element => {
               className="!absolute !left-[31px] !w-[388px] !top-[265px]"
               labelClassName="!tracking-[var(--bold-12px-letter-spacing)] !text-[length:var(--bold-12px-font-size)] ![font-style:var(--bold-12px-font-style)] !font-[number:var(--bold-12px-font-weight)] !font-bold-12px !leading-[var(--bold-12px-line-height)] !w-[388px]"
               overlapGroupClassName="!w-[388px]"
-              text="Student ID"
-              text1="STUDENT ID"
+              text="Email"
+              text1="EMAIL"
               textfieldClassName="!tracking-[var(--regular-14px-letter-spacing)] !text-[length:var(--regular-14px-font-size)] ![font-style:var(--regular-14px-font-style)] !font-[number:var(--regular-14px-font-weight)] !font-regular-14px !leading-[var(--regular-14px-line-height)] !w-[364px]"
             />
             <TextfieldLabelIcon
@@ -49,7 +76,7 @@ export const Login = (): JSX.Element => {
               textfieldClassName="!tracking-[var(--regular-14px-letter-spacing)] !text-[length:var(--regular-14px-font-size)] ![font-style:var(--regular-14px-font-style)] !font-[number:var(--regular-14px-font-weight)] !font-regular-14px !leading-[var(--regular-14px-line-height)] !w-[328px]"
             />
             <p className="absolute w-[388px] top-[196px] left-[31px] font-regular-14px font-[number:var(--regular-14px-font-weight)] text-grayscale-gray text-[length:var(--regular-14px-font-size)] text-center tracking-[var(--regular-14px-letter-spacing)] leading-[var(--regular-14px-line-height)] [font-style:var(--regular-14px-font-style)]">
-              Enter your Student ID and password below
+              Enter your Email and password below
             </p>
             <div className="absolute w-[388px] top-[98px] left-[31px] opacity-70 font-bold-19px font-[number:var(--bold-19px-font-weight)] text-sidebar-gray text-[length:var(--bold-19px-font-size)] text-center tracking-[var(--bold-19px-letter-spacing)] leading-[var(--bold-19px-line-height)] [font-style:var(--bold-19px-font-style)]">
               Power Grader
@@ -64,6 +91,10 @@ export const Login = (): JSX.Element => {
             <p className="absolute w-[388px] top-[154px] left-[31px] font-bold-24px font-[number:var(--bold-24px-font-weight)] text-grayscale-black text-[length:var(--bold-24px-font-size)] text-center tracking-[var(--bold-24px-letter-spacing)] leading-[var(--bold-24px-line-height)] [font-style:var(--bold-24px-font-style)]">
               Log In to Power Grader
             </p>
+            <div
+              id="loginDiv"
+              className="absolute w-[500px] top-[550px] left-[100px]"
+            ></div>
           </div>
         </div>
       </div>
