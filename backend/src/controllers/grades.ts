@@ -2,34 +2,10 @@ import { RequestHandler } from "express";
 import GradeModel from "../models/grade";
 import createHttpError from "http-errors";
 import UserModel from "../models/user";
+import { CreateGradeBody } from "../validation/grades";
 
-interface GradeBody{
-        class1: string,
-        grade1: number,
-    
-        class2: string,
-        grade2: number,
-    
-        class3: string,
-        grade3: number,
-    
-        class4: string,
-        grade4: number,
-    
-        class5: string,
-        grade5: number,
-    
-        class6: string,
-        grade6: number,
-    
-        class7: string,
-        grade7: number,
-    
-        class8: string,
-        grade8: number,
-}
 
-export const postAcademics: RequestHandler<unknown, unknown, GradeBody, unknown> = async (req, res, next) => {
+export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, unknown> = async (req, res, next) => {
     const studentUserId = req.session.userId;
     
 

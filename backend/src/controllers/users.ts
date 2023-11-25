@@ -2,6 +2,10 @@ import { RequestHandler } from "express";
 import UserModel from "../models/user";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
+import EmailVerificationToken from "../models/email-verification-token";
+import * as Email from "../util/email";
+import crypto from "crypto";
+import { SignUpBody, LoginBody, RequestVerificationCodeBody } from "../validation/users";
 
 export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
@@ -26,21 +30,14 @@ export const getUsers: RequestHandler = async (req, res, next) => {
     }
 }
 
-interface SignUpBody{
-    name?: string,
-    email?: string,
-    studentId?: string,
-    password?: string,
-}
-
 export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
     const studentId = req.body.studentId;
     const passwordRaw = req.body.password;
-
+    const verificationCode = req.body.verificationCode;
     try{
-        if(!name || !email || !studentId || !passwordRaw){
+        if(!name || !email || !studentId || !passwordRaw || !verificationCode){
             throw createHttpError(400, "Parameters are missing");
         }
 
@@ -54,7 +51,13 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
         if(existingStudentId){
             throw createHttpError(409, "Student ID already exists. Please choose a different student ID or login instead.");
         }
+        const emailVerificationToken = await EmailVerificationToken.findOne({ email, verificationCode }).exec();
 
+        if (!emailVerificationToken) {
+            throw createHttpError(400, "Verification code incorrect or expired.");
+        } else {
+            await emailVerificationToken.deleteOne();
+        }
         const passwordHashed = await bcrypt.hash(passwordRaw, 10);
 
         const newUser = await UserModel.create({
@@ -72,10 +75,6 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
     }
 }
 
-interface LoginBody{
-    studentId?: string,
-    password?: string,
-}
 
 export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async (req, res, next) => {
     const studentId = req.body.studentId;
@@ -113,4 +112,21 @@ export const logout: RequestHandler = async (req, res, next) => {
                 res.status(200).end();
             }
         });
+};
+
+export const requestVerificationCode: RequestHandler<unknown, unknown, RequestVerificationCodeBody, unknown> = async (req, res, next) => {
+    const email = req.body.email;
+    try{
+        const existingEmail = await UserModel.findOne({email: email}).exec();
+        if(existingEmail){
+            throw createHttpError(409, "Email is already registered, please log in instead");
+        }
+        const verificationCode = crypto.randomInt(100000, 999999);
+        await EmailVerificationToken.create({email, verificationCode});
+        await Email.sendVerificationEmail(email, verificationCode.toString());
+
+        res.sendStatus(200);
+    }catch(error){
+        next(error);
+    }
 };
