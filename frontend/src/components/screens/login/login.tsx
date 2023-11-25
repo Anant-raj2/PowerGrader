@@ -54,9 +54,9 @@ export const Login = (): JSX.Element => {
             <div className="absolute w-[388px] top-[98px] left-[31px] opacity-70 font-bold-19px font-[number:var(--bold-19px-font-weight)] text-sidebar-gray text-[length:var(--bold-19px-font-size)] text-center tracking-[var(--bold-19px-letter-spacing)] leading-[var(--bold-19px-line-height)] [font-style:var(--bold-19px-font-style)]">
               Power Grader
             </div>
-            <div className="absolute w-[48px] h-[48px] top-[39px] left-[201px] bg-mainblue rounded-[24px]">
+            <div className="absolute w-[48px] h-[48px] top-[39px] left-[201px] bg-mainblue rounded-[24px] flex items-center justify-center">
               <img
-                className="absolute w-[75px] h-[75px] top-[-13px] left-[-13px]"
+                className="w-[100%] h-[100%]"
                 alt="Pg white"
                 src="https://c.animaapp.com/PUgvNGDd/img/pg-white-1.svg"
               />
