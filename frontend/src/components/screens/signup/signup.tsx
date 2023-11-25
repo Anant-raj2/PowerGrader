@@ -8,6 +8,7 @@ export const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
+    <div className="App auth-page">
     <div className="bg-[#363740] flex flex-row justify-center w-full">
       <div className="bg-sidebar-bg w-[1512px] h-[982px]">
         <div className="relative w-[452px] h-[704px] top-[139px] left-[530px] bg-grayscale-white rounded-[8px] overflow-hidden border border-solid border-grayscale-divider">
@@ -83,6 +84,7 @@ export const SignUp = (): JSX.Element => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };

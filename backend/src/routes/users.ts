@@ -2,10 +2,11 @@ import express from "express";
 import * as UsersController from "../controllers/users";
 import validateRequestSchema from "../middlewares/validateRequest";
 import { signUpSchema, requestVerificationCodeSchema, loginSchema } from "../validation/users";
+import { requiresAuth } from "../middlewares/auth";
 
 const router = express.Router();
 
-router.get("/", UsersController.getUsers);
+router.get("/", requiresAuth, UsersController.getUsers);
 
 router.post("/signup", validateRequestSchema(signUpSchema), UsersController.signUp);
 

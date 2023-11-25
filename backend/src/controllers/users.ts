@@ -14,7 +14,7 @@ export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(401, "User not authenticated");
         }
 
-        const user = await UserModel.findById(authenticatedUserId).select("+email +studentId").exec();
+        const user = await UserModel.findById(authenticatedUserId).select("+email").exec();
         res.status(200).json(user);
     }catch(error){
         next(error);
@@ -33,11 +33,10 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
-    const studentId = req.body.studentId;
     const passwordRaw = req.body.password;
     const verificationCode = req.body.verificationCode;
     try{
-        if(!name || !email || !studentId || !passwordRaw || !verificationCode){
+        if(!name || !email || !passwordRaw || !verificationCode){
             throw createHttpError(400, "Parameters are missing");
         }
 
@@ -47,10 +46,6 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
             throw createHttpError(409, "Email already exists. Please choose a different email or login instead.");
         }
 
-        const existingStudentId = await UserModel.findOne({studentId: studentId}).exec();
-        if(existingStudentId){
-            throw createHttpError(409, "Student ID already exists. Please choose a different student ID or login instead.");
-        }
         const emailVerificationToken = await EmailVerificationToken.findOne({ email, verificationCode }).exec();
 
         if (!emailVerificationToken) {
@@ -63,7 +58,6 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
         const newUser = await UserModel.create({
             name: name,
             email: email,
-            studentId: studentId,
             password: passwordHashed,
         });
 
@@ -77,24 +71,24 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
 
 
 export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async (req, res, next) => {
-    const studentId = req.body.studentId;
+    const email = req.body.email;
     const password = req.body.password;
 
     try{
-        if(!studentId || !password){
+        if(!email || !password){
             throw createHttpError(400, "Parameters are missing");
         }
 
-        const user = await UserModel.findOne({studentId: studentId}).select("+studentId +email +password").exec();
+        const user = await UserModel.findOne({email: email}).select("+email +password").exec();
 
         if(!user){
-            throw createHttpError(401, "Invalid student ID or password");
+            throw createHttpError(401, "Invalid email or password");
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
         if(!isPasswordCorrect){
-            throw createHttpError(401, "Invalid student ID or password");
+            throw createHttpError(401, "Invalid email or password");
         }
 
         req.session.userId = user._id;

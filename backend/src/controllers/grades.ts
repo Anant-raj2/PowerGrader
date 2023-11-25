@@ -7,8 +7,6 @@ import { CreateGradeBody } from "../validation/grades";
 
 export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, unknown> = async (req, res, next) => {
     const studentUserId = req.session.userId;
-    
-
 
     const class1 = req.body.class1;
     const grade1 = req.body.grade1;
@@ -43,7 +41,7 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
         if(!user){
             throw createHttpError(404, "User not found");
         }
-        const studentId = user.studentId;
+        const email = user.email;
         const name = user.name;
         
         if(!grade1 || !class1 || !grade2 || !class2 || !grade3 || !class3 || !grade4 || !class4 || !grade5 || !class5 || !grade6 || !class6 || !grade7 || !class7 || !grade8 || !class8){
@@ -55,7 +53,7 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
         }
         const newGrade = await GradeModel.create({
             studentUserId: studentUserId,
-            studentId: studentId,
+            email: email,
             name: name,
             grades: [
                 {
