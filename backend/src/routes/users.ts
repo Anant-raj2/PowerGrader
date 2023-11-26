@@ -17,5 +17,7 @@ router.post("/verification-code", validateRequestSchema(requestVerificationCodeS
 router.get("/authenticated-user", UsersController.getAuthenticatedUser);
 
 router.post("/logout", UsersController.logout);
+router.post("/login-google", UsersController.loginGoogle);
+
 
 export default router;

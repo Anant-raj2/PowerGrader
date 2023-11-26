@@ -124,3 +124,25 @@ export const requestVerificationCode: RequestHandler<unknown, unknown, RequestVe
         next(error);
     }
 };
+
+export const loginGoogle: RequestHandler = async (req, res, next) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    try{
+        if(!email || !name){
+            throw createHttpError(400, "Parameters are missing");
+        }
+
+        const user = await UserModel.findOne({email: email}).select("+email").exec();
+
+        if(!user){
+            throw createHttpError(409, "No Account exists with this email. Please sign up instead.");
+        }
+
+        req.session.userId = user._id;
+
+        res.status(201).json(user);
+    }catch(error){
+        next(error);
+    }
+};

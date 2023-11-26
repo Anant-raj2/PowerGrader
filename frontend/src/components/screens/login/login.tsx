@@ -5,6 +5,7 @@ import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import * as UserApi from "../../../networks/user_api";
 
 import "../../../App.css";
 declare const google: any;
@@ -14,11 +15,12 @@ export const Login = (): JSX.Element => {
   function handleCallbackResponse(response: any) {
     console.log(response.credential);
 
-    var userObject = jwtDecode(response.credential);
+    var userObject = jwtDecode(response.credential) as User;
     console.log(userObject);
+    UserApi.loginGoogle(userObject);
   }
   interface User {
-    picture: string;
+    email: string;
     name: string;
     // other properties...
   }
