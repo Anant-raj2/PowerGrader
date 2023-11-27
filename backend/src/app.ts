@@ -8,6 +8,7 @@ import errorHandler from "./middlewares/errorHandler";
 import morgan from "morgan";
 import sessionConfig from "./config/session";
 import createHttpError from "http-errors";
+import { requiresAuth } from "./middlewares/auth";
 
 const app = express();
 
@@ -23,8 +24,7 @@ app.use(express.json());
 app.use(session(sessionConfig));
 
 app.use("/api/users", usersRoutes);
-app.use("/api/grades", gradesRoutes);
-
+app.use("/api/grades", requiresAuth, gradesRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(400, "Page Not found"));

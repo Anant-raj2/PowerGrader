@@ -5,6 +5,7 @@ import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import * as UserApi from "../../../networks/user_api";
 
 import "../../../App.css";
 declare const google: any;
@@ -14,8 +15,15 @@ export const Login = (): JSX.Element => {
   function handleCallbackResponse(response: any) {
     console.log(response.credential);
 
-    var userObject = jwtDecode(response.credential);
+    var userObject = jwtDecode(response.credential) as User;
     console.log(userObject);
+    UserApi.loginGoogle(userObject);
+  }
+
+  interface User {
+    email: string;
+    name: string;
+    // other properties...
   }
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export const Login = (): JSX.Element => {
   };
 
   return (
-    <div className="App overflow-hidden auth-page">
+    <div className="App  auth-page">
       <div className="bg-[#363740] flex flex-row justify-center w-full h-full min-h-screen">
         <div className="bg-sidebar-bg w-[1512px] h-[982px]">
           <div className="relative w-[452px] h-[704px] top-[139px] left-[530px] bg-grayscale-white rounded-[8px] overflow-hidden border border-solid border-grayscale-divider">

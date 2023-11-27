@@ -5,7 +5,7 @@ const nameSchema = yup.string()
 
 const emailSchema = yup.string().email();
 
-const studentIdSchema = yup.string().min(6).max(6);
+// const studentIdSchema = yup.string().min(6).max(6);
 
 const passwordSchema = yup.string().min(6).max(20);
 
@@ -13,7 +13,6 @@ export const signUpSchema = yup.object({
     body: yup.object({
         name: nameSchema.required(),
         email: emailSchema.required(),
-        studentId: studentIdSchema.required(),
         password: passwordSchema.required(),
         verificationCode: yup.string().required(),
     }),
@@ -23,7 +22,7 @@ export type SignUpBody = yup.InferType<typeof signUpSchema>["body"];
 
 export const loginSchema = yup.object({
     body: yup.object({
-        studentId: studentIdSchema.required(),
+        email: emailSchema.required(),
         password: passwordSchema.required(),
     }),
 });

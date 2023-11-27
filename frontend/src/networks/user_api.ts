@@ -28,11 +28,21 @@ export async function getLoggedInUser(): Promise<User> {
   return response.json();
 }
 
+export async function getVerificationCode(email: string) {
+  await fetchData("/api/users/verification-code", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+}
+
 export interface SignUpCredentials {
   username: string;
   email: string;
   password: string;
-  studentId: string;
+  verificationCode: string;
 }
 
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
@@ -47,7 +57,7 @@ export async function signUp(credentials: SignUpCredentials): Promise<User> {
 }
 
 export interface LoginCredentials {
-  studentId: string;
+  email: string;
   password: string;
 }
 
@@ -64,4 +74,20 @@ export async function login(credentials: LoginCredentials): Promise<User> {
 
 export async function logout() {
   await fetchData("/api/users/logout", { method: "POST" });
+}
+
+interface GoogleLoginBody{
+  name: string;
+  email: string;
+}
+
+export async function loginGoogle(credentials: GoogleLoginBody): Promise<User> {
+  const response = await fetchData("/api/users/login-google", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+  return response.json();
 }
