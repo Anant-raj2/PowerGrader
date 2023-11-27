@@ -17,11 +17,6 @@ export const Login = (): JSX.Element => {
     var userObject = jwtDecode(response.credential);
     console.log(userObject);
   }
-  interface User {
-    picture: string;
-    name: string;
-    // other properties...
-  }
 
   useEffect(() => {
     /* global google */
@@ -36,6 +31,11 @@ export const Login = (): JSX.Element => {
       size: "large",
     });
   }, []);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Your login logic here
+  };
 
   return (
     <div className="App overflow-hidden auth-page">
@@ -53,11 +53,14 @@ export const Login = (): JSX.Element => {
                 onClick={() => navigate("/")}
               />
             </div>
-            <ButtonContained
-              btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
-              className="!absolute !left-[31px] !bg-mainblue !w-[388px] !top-[441px]"
-              text="Log In"
-            />
+            <form onSubmit={handleSubmit}>
+              <ButtonContained
+                btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
+                className="!absolute !left-[31px] !bg-mainblue !w-[388px] !top-[441px]"
+                text="Log In"
+                type="submit"
+              />
+            </form>
             <TextfieldLabel
               className="!absolute !left-[31px] !w-[388px] !top-[265px]"
               labelClassName="!tracking-[var(--bold-12px-letter-spacing)] !text-[length:var(--bold-12px-font-size)] ![font-style:var(--bold-12px-font-style)] !font-[number:var(--bold-12px-font-weight)] !font-bold-12px !leading-[var(--bold-12px-line-height)] !w-[388px]"

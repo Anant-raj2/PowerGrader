@@ -2,7 +2,6 @@ import { Login } from "./components/screens/login";
 import { SignUp } from "./components/screens/signup";
 import { StudentDashboard } from "./components/screens/StudentDashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
           <Route path="/" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
-      {/* <StudentDashboard /> */}
+      <StudentDashboard />
     </div>
   );
 }

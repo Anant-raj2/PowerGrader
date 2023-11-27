@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 export const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Your login logic here
+  };
+
   return (
     <div className="bg-[#363740] flex flex-row justify-center w-full">
       <div className="bg-sidebar-bg w-[1512px] h-[982px]">
@@ -27,9 +32,11 @@ export const SignUp = (): JSX.Element => {
           <button className="absolute w-[388px] h-[48px] top-[595px] left-[35px] all-[unset] box-border">
             <div className="relative h-[48px] rounded-[8px]">
               <div className="w-[388px] h-[48px] top-0 bg-[#3751ff] rounded-[8px] shadow-button-accent-default absolute left-0" />
-              <button className="absolute w-[340px] top-[14px] left-[24px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border">
-                Sign up
-              </button>
+              <form onSubmit={handleSubmit}>
+                <button className="absolute w-[340px] top-[14px] left-[24px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border">
+                  Sign up
+                </button>
+              </form>
             </div>
           </button>
           <TextfieldLabel
