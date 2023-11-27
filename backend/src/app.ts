@@ -9,6 +9,7 @@ import morgan from "morgan";
 import sessionConfig from "./config/session";
 import createHttpError from "http-errors";
 import { requiresAuth } from "./middlewares/auth";
+import cors from "cors";
 
 const app = express();
 
@@ -18,7 +19,7 @@ if(env.APP_STAGE === "production"){
 }else{
     app.use(morgan("dev"));
 }
-
+app.use(cors());
 app.use(express.json());
 
 app.use(session(sessionConfig));
