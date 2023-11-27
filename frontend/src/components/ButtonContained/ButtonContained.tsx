@@ -2,15 +2,18 @@ interface Props {
   className: any;
   btnLabelClassName: any;
   text: string;
+  type?: "button" | "submit" | "reset";
 }
 
-export const ButtonContained = ({
+export const ButtonContained: React.FC<Props> = ({
   className,
   btnLabelClassName,
   text = "Label",
+  type = "button",
 }: Props): JSX.Element => {
   return (
-    <div
+    <button
+      type={type}
       className={`relative w-[255px] h-[48px] bg-accent-default rounded-[8px] shadow-button-accent-default ${className}`}
     >
       <div
@@ -18,6 +21,6 @@ export const ButtonContained = ({
       >
         {text}
       </div>
-    </div>
+    </button>
   );
 };

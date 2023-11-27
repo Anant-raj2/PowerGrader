@@ -12,7 +12,7 @@ function App() {
           <Route path="/" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
-      {/* <StudentDashboard /> */}
+      <StudentDashboard />
     </div>
   );
 }

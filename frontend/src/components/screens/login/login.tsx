@@ -19,6 +19,7 @@ export const Login = (): JSX.Element => {
     console.log(userObject);
     UserApi.loginGoogle(userObject);
   }
+
   interface User {
     email: string;
     name: string;
@@ -39,6 +40,11 @@ export const Login = (): JSX.Element => {
     });
   }, []);
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Your login logic here
+  };
+
   return (
     <div className="App  auth-page">
       <div className="bg-[#363740] flex flex-row justify-center w-full h-full min-h-screen">
@@ -55,11 +61,14 @@ export const Login = (): JSX.Element => {
                 onClick={() => navigate("/")}
               />
             </div>
-            <ButtonContained
-              btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
-              className="!absolute !left-[31px] !bg-mainblue !w-[388px] !top-[441px]"
-              text="Log In"
-            />
+            <form onSubmit={handleSubmit}>
+              <ButtonContained
+                btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
+                className="!absolute !left-[31px] !bg-mainblue !w-[388px] !top-[441px]"
+                text="Log In"
+                type="submit"
+              />
+            </form>
             <TextfieldLabel
               className="!absolute !left-[31px] !w-[388px] !top-[265px]"
               labelClassName="!tracking-[var(--bold-12px-letter-spacing)] !text-[length:var(--bold-12px-font-size)] ![font-style:var(--bold-12px-font-style)] !font-[number:var(--bold-12px-font-weight)] !font-bold-12px !leading-[var(--bold-12px-line-height)] !w-[388px]"
