@@ -1,5 +1,6 @@
 import { IconHideActive } from "../icons/IconHideActive/IconHideActive";
 import { useState } from "react";
+import { FieldError, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
   className: any;
@@ -9,6 +10,9 @@ interface Props {
   iconHideActiveStyleOverrideClassName: any;
   labelClassName: any;
   text1: string;
+  type: string;
+  register: UseFormRegisterReturn,
+  [x: string]: any,
 }
 
 export const TextfieldLabelIcon = ({
@@ -19,6 +23,8 @@ export const TextfieldLabelIcon = ({
   iconHideActiveStyleOverrideClassName,
   labelClassName,
   text1 = "LABEL",
+  register,
+  ...props
 }: Props): JSX.Element => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
@@ -32,6 +38,8 @@ export const TextfieldLabelIcon = ({
         className={`absolute w-[255px] h-[42px] top-[22px] left-0 bg-grayscale-extra-light rounded-[8px] border border-solid border-grayscale-gray-lightest ${overlapGroupClassName}`}
       >
         <input
+          {...props}
+          {...register}
           type={isPasswordHidden ? "password" : "text"}
           className={`absolute w-[195px] top-[9px] left-[15px] opacity-40 font-reg-14-0-3-px font-[number:var(--reg-14-0-3-px-font-weight)] text-grayscale-gray-dark text-[length:var(--reg-14-0-3-px-font-size)] tracking-[var(--reg-14-0-3-px-letter-spacing)] leading-[var(--reg-14-0-3-px-line-height)] [font-style:var(--reg-14-0-3-px-font-style)] outline-none ${textfieldClassName}`}
           placeholder={text}

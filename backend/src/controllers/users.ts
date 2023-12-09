@@ -39,7 +39,6 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
         if(!name || !email || !passwordRaw || !verificationCode){
             throw createHttpError(400, "Parameters are missing");
         }
-
         const existingEmail = await UserModel.findOne({email: email}).exec();
 
         if(existingEmail){

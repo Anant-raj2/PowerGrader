@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
-const nameSchema = yup.string()
+export const nameSchema = yup.string()
     .max(20);
 
-const emailSchema = yup.string().email();
+export const emailSchema = yup.string().email();
 
 // const studentIdSchema = yup.string().min(6).max(6);
 
-const passwordSchema = yup.string().min(6).max(20);
+export const passwordSchema = yup.string().min(6).max(20);
 
 export const signUpSchema = yup.object({
     body: yup.object({
