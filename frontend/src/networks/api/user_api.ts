@@ -2,7 +2,7 @@ import { User } from "../../models/user";
 import api from "../axiosInstance";
 
 export async function getAuthenticatedUser() {
-  const response = await api.get<User>("/api/users");
+  const response = await api.get<User>("/api/users/authenticated-user");
   return response.data;
 }
 

@@ -1,32 +1,28 @@
 import "../../../App.css";
 import useAuthenticatedUser from "../../../hooks/useAuthenticatedUser";
 import * as UserApi from "../../../networks/api/user_api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const StudentDashboard = (): JSX.Element => {
   const { user } = useAuthenticatedUser();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(user);
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  // }, []);
 
   async function logout() {
     await UserApi.logout();
     navigate("/login");
+    window.location.reload();
   }
 
   async function getUserInfo() {
-    // const stringifiedUserInfo = JSON.stringify(userInfo);
-    if(!userInfo) {
+    if(!user) {
       return;
     }
-    console.log(userInfo);
+    console.log(user.name);
   }
   return <div>
+    <h1>Welcome, {user!.name}!</h1>
     <button className="absolute w-[388px] h-[48px] all-[unset] cursor-pointer box-border">
                   <div className="relative h-[48px] rounded-[8px]">
                     <div className="w-[388px] h-[48px] top-0 bg-[#3751ff] rounded-[8px] shadow-button-accent-default absolute left-0" />

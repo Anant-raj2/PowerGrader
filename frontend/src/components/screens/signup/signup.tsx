@@ -84,7 +84,7 @@ async function requestVerificationCode() {
                 }
       <div className="App auth-page">
           <div className="bg-[#363740] flex flex-row justify-center w-full">
-            <div className="bg-sidebar-bg w-[1512px] h-[982px]">
+            <div className="bg-sidebar-bg w-[1512px] h-[945px]">
               <div className="relative w-[452px] h-[704px] top-[139px] left-[530px] bg-grayscale-white rounded-[8px] overflow-hidden border border-solid border-grayscale-divider">
                 <p className="absolute w-[388px] top-[196px] left-[31px] font-regular-14px font-[number:var(--regular-14px-font-weight)] text-grayscale-gray text-[length:var(--regular-14px-font-size)] text-center tracking-[var(--regular-14px-letter-spacing)] leading-[var(--regular-14px-line-height)] [font-style:var(--regular-14px-font-style)]">
                   Enter your email and password below
