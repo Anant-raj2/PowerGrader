@@ -52,10 +52,10 @@ export const Login = (): JSX.Element => {
 {errorText &&
                     <h1>{errorText}</h1>
                 }
-    <div className="App  auth-page">
+    <div className="App auth-page">
       
     <div className="bg-[#363740] flex flex-row justify-center w-full h-full min-h-screen">
-      <div className="bg-sidebar-bg w-[1512px] h-[982px]">
+      <div className="bg-sidebar-bg w-[1512px]">
         <div className="relative w-[452px] h-[704px] top-[139px] left-[530px] bg-grayscale-white rounded-[8px] overflow-hidden border border-solid border-grayscale-divider">
           <div className="absolute w-[216px] h-[20px] top-[643px] left-[118px]">
             <div className="absolute top-0 left-0 font-regular-14px font-[number:var(--regular-14px-font-weight)] text-grayscale-gray text-[length:var(--regular-14px-font-size)] text-center tracking-[var(--regular-14px-letter-spacing)] leading-[var(--regular-14px-line-height)] whitespace-nowrap [font-style:var(--regular-14px-font-style)]">

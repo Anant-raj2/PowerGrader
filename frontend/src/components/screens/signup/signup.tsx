@@ -144,9 +144,9 @@ export const SignUp = (): JSX.Element => {
                 textfieldClassName="!tracking-[var(--regular-14px-letter-spacing)] !text-[length:var(--regular-14px-font-size)] ![font-style:var(--regular-14px-font-style)] !font-[number:var(--regular-14px-font-weight)] !font-regular-14px !leading-[var(--regular-14px-line-height)] !w-[364px]"
               />
               <TextfieldLabel
-                className="!absolute !left-[35px] !w-[100px] !top-[500px]"
-                labelClassName="!tracking-[var(--bold-12px-letter-spacing)] !text-[length:var(--bold-12px-font-size)] ![font-style:var(--bold-12px-font-style)] !font-[number:var(--bold-12px-font-weight)] !font-bold-12px !leading-[var(--bold-12px-line-height)] !w-[250px]"
-                overlapGroupClassName="!w-[250px]"
+                className="!absolute !left-[5px] !w-[388px] !top-[500px]"
+                labelClassName="!tracking-[var(--bold-12px-letter-spacing)] !text-[length:var(--bold-12px-font-size)] ![font-style:var(--bold-12px-font-style)] !font-[number:var(--bold-12px-font-weight)] !font-bold-12px !leading-[var(--bold-12px-line-height)] !w-[388px]"
+                overlapGroupClassName="!w-[388px]"
                 text="Verification Code"
                 text1="VERIFICATION CODE"
                 type="number"
@@ -154,12 +154,12 @@ export const SignUp = (): JSX.Element => {
                 error={errors.verificationCode}
                 textfieldClassName="!tracking-[var(--regular-14px-letter-spacing)] !text-[length:var(--regular-14px-font-size)] ![font-style:var(--regular-14px-font-style)] !font-[number:var(--regular-14px-font-weight)] !font-regular-14px !leading-[var(--regular-14px-line-height)] !w-[364px]"
               />
-              <button className="absolute w-[100px] h-[48px] top-[518px] left-[300px] all-[unset] box-border">
+              <button className="absolute w-[48px] h-[48px] top-[518px] left-[400px] all-[unset] box-border">
                 <div className="relative h-[48px] rounded-[15px]">
-                  <div className="w-[140px] h-[48px] top-0 bg-[#3751ff] rounded-[15px] shadow-button-accent-default absolute left-0" />
+                  <div className="w-[100px] h-[48px] top-0 bg-[#3751ff] rounded-[15px] shadow-button-accent-default absolute left-0" />
                   <button
                     onClick={requestVerificationCode}
-                    className="absolute w-[55px] top-[14px] left-[45px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border flex justify-center items-center"
+                    className="absolute w-[55px] top-[14px] left-[24px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border"
                   >
                     Send{" "}
                     {verificationCodeCooldownSecondsLeft > 0 &&
