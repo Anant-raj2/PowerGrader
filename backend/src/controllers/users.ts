@@ -94,7 +94,7 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
         res.status(201).json(user);
     }catch(error){
         next(error);
-    }    
+    }
 };
 
 export const logout: RequestHandler = async (req, res, next) => {

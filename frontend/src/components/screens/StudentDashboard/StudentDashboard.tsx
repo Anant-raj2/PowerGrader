@@ -22,7 +22,7 @@ export const StudentDashboard = (): JSX.Element => {
     console.log(user.name);
   }
   return <div>
-    <h1>Welcome, {user!.name}!</h1>
+    <h1 className="text-5xl">Welcome, {user!.name}!</h1>
     <button className="absolute w-[388px] h-[48px] all-[unset] cursor-pointer box-border">
                   <div className="relative h-[48px] rounded-[8px]">
                     <div className="w-[388px] h-[48px] top-0 bg-[#3751ff] rounded-[8px] shadow-button-accent-default absolute left-0" />
