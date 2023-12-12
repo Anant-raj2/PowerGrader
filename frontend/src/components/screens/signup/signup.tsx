@@ -16,6 +16,7 @@ const validationSchema = yup.object({
   email: yup.string().email().required("Required"),
   password: yup.string().min(6).max(20).required("Required"),
   verificationCode: yup.string().required("Required"),
+  createdAt: yup.date().required("Required"),
 });
 
 type SignUpFormData = yup.InferType<typeof validationSchema>;

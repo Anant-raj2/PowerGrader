@@ -16,10 +16,7 @@ export const StudentDashboard = (): JSX.Element => {
   }
 
   async function getUserInfo() {
-    if(!user) {
-      return;
-    }
-    console.log(user.name);
+    console.log(user!.createdAt);
   }
   return (
     
@@ -30,7 +27,7 @@ export const StudentDashboard = (): JSX.Element => {
               Your Overview
             </div>
             <p className="absolute w-[400px] top-[62px] left-[31px] font-regular-12px font-[number:var(--regular-12px-font-weight)] text-grayscale-gray text-[length:var(--regular-12px-font-size)] tracking-[var(--regular-12px-letter-spacing)] leading-[var(--regular-12px-line-height)] whitespace-nowrap [font-style:var(--regular-12px-font-style)]">
-              as of 25 May 2019, 09:41 PM
+              {userInfo?.createdAt.substring(0,10)} - {userInfo?.createdAt.substring(11,19)}
             </p>
             <div className="absolute w-[342px] h-[546px] -top-px left-[851px]">
               <div className="relative h-[546px]">
@@ -41,26 +38,26 @@ export const StudentDashboard = (): JSX.Element => {
                   English
                 </div>
                 <div className="absolute w-[342px] h-[546px] top-0 left-0">
-                  <img className="w-px h-[546px] top-0 absolute left-0" alt="Divider line" src="vertical.svg" />
+                  <img className="w-px h-[546px] top-0 absolute left-0" alt="Divider line" src="https://c.animaapp.com/1eEqmbrT/img/divider---line---vertical.svg" />
                   <img
                     className="w-[342px] h-px top-[114px] object-cover absolute left-0"
                     alt="Divider line"
-                    src="horizontal.svg"
+                    src="https://c.animaapp.com/1eEqmbrT/img/divider---line---horizontal-3.svg"
                   />
                   <img
                     className="top-[220px] absolute w-[342px] h-px left-0 object-cover"
                     alt="Divider line"
-                    src="image.svg"
+                    src="https://c.animaapp.com/1eEqmbrT/img/divider---line---horizontal-3.svg"
                   />
                   <img
                     className="top-[326px] absolute w-[342px] h-px left-0 object-cover"
                     alt="Divider line"
-                    src="horizontal-2.svg"
+                    src="https://c.animaapp.com/1eEqmbrT/img/divider---line---horizontal-3.svg"
                   />
                   <img
                     className="top-[432px] absolute w-[342px] h-px left-0 object-cover"
                     alt="Divider line"
-                    src="horizontal-3.svg"
+                    src="https://c.animaapp.com/1eEqmbrT/img/divider---line---horizontal-3.svg"
                   />
                 </div>
                 <div className="absolute w-[278px] top-[137px] left-[32px] font-semibold-16px font-[number:var(--semibold-16px-font-weight)] text-grayscale-gray text-[length:var(--semibold-16px-font-size)] text-center tracking-[var(--semibold-16px-letter-spacing)] leading-[var(--semibold-16px-line-height)] [font-style:var(--semibold-16px-font-style)]">
@@ -138,7 +135,7 @@ export const StudentDashboard = (): JSX.Element => {
           </div>
           <div className="absolute w-[1194px] h-[44px] top-[31px] left-[200px]">
             <div className="absolute w-[245px] top-[12px] left-[910px] [font-family:'Mulish-SemiBold',Helvetica] font-semibold text-grayscale-black text-[20px] text-right tracking-[0.20px] leading-[20px] whitespace-nowrap">
-              Welcome&nbsp;{userInfo?.name},&nbsp;you&nbsp;can&nbsp;<button onClick={logout}><span className="text-mainblue">logout</span></button>&nbsp;here.
+              Welcome&nbsp;{userInfo?.name},&nbsp;you&nbsp;can&nbsp;<button onClick={getUserInfo}><span className="text-mainblue">logout</span></button>&nbsp;here.
             </div>
             <div className="w-[843px] top-[5px] left-0 font-bold-24px font-[number:var(--bold-24px-font-weight)] text-grayscale-black text-[length:var(--bold-24px-font-size)] tracking-[var(--bold-24px-letter-spacing)] absolute leading-[var(--bold-24px-line-height)] [font-style:var(--bold-24px-font-style)]">
               Overview

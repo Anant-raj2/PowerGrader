@@ -14,7 +14,7 @@ export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(401, "User not authenticated");
         }
 
-        const user = await UserModel.findById(authenticatedUserId).select("+email").exec();
+        const user = await UserModel.findById(authenticatedUserId).select("+email+createdAt").exec();
         res.status(200).json(user);
     }catch(error){
         next(error);
