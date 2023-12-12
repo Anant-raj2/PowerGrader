@@ -135,7 +135,7 @@ export const StudentDashboard = (): JSX.Element => {
           </div>
           <div className="absolute w-[1194px] h-[44px] top-[31px] left-[200px]">
             <div className="absolute w-[245px] top-[12px] left-[910px] [font-family:'Mulish-SemiBold',Helvetica] font-semibold text-grayscale-black text-[20px] text-right tracking-[0.20px] leading-[20px] whitespace-nowrap">
-              Welcome&nbsp;{userInfo?.name},&nbsp;you&nbsp;can&nbsp;<button onClick={getUserInfo}><span className="text-mainblue">logout</span></button>&nbsp;here.
+              Welcome&nbsp;{userInfo?.name},&nbsp;you&nbsp;can&nbsp;<button onClick={logout}><span className="text-mainblue">logout</span></button>&nbsp;here.
             </div>
             <div className="w-[843px] top-[5px] left-0 font-bold-24px font-[number:var(--bold-24px-font-weight)] text-grayscale-black text-[length:var(--bold-24px-font-size)] tracking-[var(--bold-24px-letter-spacing)] absolute leading-[var(--bold-24px-line-height)] [font-style:var(--bold-24px-font-style)]">
               Overview
