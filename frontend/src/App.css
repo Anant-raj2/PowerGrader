@@ -69,6 +69,51 @@
   --semibold-14px-line-height: 20px;
   --sidebar-bg: rgba(54, 55, 64, 1);
   --sidebar-gray: rgba(164, 166, 179, 1);
+
+  --bold-19px-font-family: "Mulish-Bold", Helvetica;
+  --bold-19px-font-size: 19px;
+  --bold-19px-font-style: normal;
+  --bold-19px-font-weight: 700;
+  --bold-19px-letter-spacing: 0.4000000059604645px;
+  --bold-19px-line-height: normal;
+  --bold-24px-font-family: "Mulish-Bold", Helvetica;
+  --bold-24px-font-size: 24px;
+  --bold-24px-font-style: normal;
+  --bold-24px-font-weight: 700;
+  --bold-24px-letter-spacing: 0.30000001192092896px;
+  --bold-24px-line-height: normal;
+  --bold-40px-font-family: "Mulish-Bold", Helvetica;
+  --bold-40px-font-size: 40px;
+  --bold-40px-font-style: normal;
+  --bold-40px-font-weight: 700;
+  --bold-40px-letter-spacing: 1px;
+  --bold-40px-line-height: normal;
+  --grayscale-black: rgba(37, 39, 51, 1);
+  --grayscale-divider: rgba(223, 224, 235, 1);
+  --grayscale-gray: rgba(159, 162, 180, 1);
+  --grayscale-white: rgba(255, 255, 255, 1);
+  --mainblue: rgba(55, 81, 255, 1);
+  --mainlightblue: rgba(221, 226, 255, 1);
+  --regular-12px-font-family: "Mulish-Regular", Helvetica;
+  --regular-12px-font-size: 12px;
+  --regular-12px-font-style: normal;
+  --regular-12px-font-weight: 400;
+  --regular-12px-letter-spacing: 0.10000000149011612px;
+  --regular-12px-line-height: 16px;
+  --regular-16px-font-family: "Mulish-Regular", Helvetica;
+  --regular-16px-font-size: 16px;
+  --regular-16px-font-style: normal;
+  --regular-16px-font-weight: 400;
+  --regular-16px-letter-spacing: 0.20000000298023224px;
+  --regular-16px-line-height: normal;
+  --semibold-16px-font-family: "Mulish-SemiBold", Helvetica;
+  --semibold-16px-font-size: 16px;
+  --semibold-16px-font-style: normal;
+  --semibold-16px-font-weight: 600;
+  --semibold-16px-letter-spacing: 0.30000001192092896px;
+  --semibold-16px-line-height: 22px;
+  --sidebar-bg: rgba(54, 55, 64, 1);
+  --sidebar-gray: rgba(164, 166, 179, 1);
 }
 
 body.auth-page html.auth-page {

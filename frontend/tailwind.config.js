@@ -15,6 +15,7 @@ module.exports = {
         mainblue: "var(--mainblue)",
         "sidebar-bg": "var(--sidebar-bg)",
         "sidebar-gray": "var(--sidebar-gray)",
+        mainlightblue: "var(--mainlightblue)",
       },
       fontFamily: {
         "bold-12-0-3-px-CAPS": "var(--bold-12-0-3-px-CAPS-font-family)",
@@ -25,6 +26,10 @@ module.exports = {
         "regular-14px": "var(--regular-14px-font-family)",
         "semibold-14-0-2-px": "var(--semibold-14-0-2-px-font-family)",
         "semibold-14px": "var(--semibold-14px-font-family)",
+        "bold-40px": "var(--bold-40px-font-family)",
+        "regular-12px": "var(--regular-12px-font-family)",
+        "regular-16px": "var(--regular-16px-font-family)",
+        "semibold-16px": "var(--semibold-16px-font-family)",
       },
       boxShadow: {
         "button-accent-default": "var(--button-accent-default)",
