@@ -10,13 +10,13 @@ import useCountdown from "../../../hooks/useCountDown";
 import useAuthenticatedUser from "../../../hooks/useAuthenticatedUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { BadRequestError } from "../../../networks/http-errors";
 
 const validationSchema = yup.object({
   name: yup.string().max(20).required("Required"),
   email: yup.string().email().required("Required"),
   password: yup.string().min(6).max(20).required("Required"),
   verificationCode: yup.string().required("Required"),
-  createdAt: yup.date().required("Required"),
 });
 
 type SignUpFormData = yup.InferType<typeof validationSchema>;
@@ -52,7 +52,7 @@ export const SignUp = (): JSX.Element => {
       mutateUser(newUser);
       navigate("/dashboard");
     } catch (error) {
-      if (error instanceof ConflictError) {
+      if (error instanceof ConflictError || error instanceof BadRequestError) {
         setErrorText(error.message);
       } else {
         console.error(error);
@@ -155,7 +155,7 @@ export const SignUp = (): JSX.Element => {
                   error={errors.verificationCode}
                   textfieldClassName="!tracking-[var(--regular-14px-letter-spacing)] !text-[length:var(--regular-14px-font-size)] ![font-style:var(--regular-14px-font-style)] !font-[number:var(--regular-14px-font-weight)] !font-regular-14px !leading-[var(--regular-14px-line-height)] !w-[364px]"
               />
-              <button className="absolute w-[48px] h-[48px] top-[518px] left-[300px] all-[unset] box-border">
+              <button className="absolute cursor-pointer w-[48px] h-[48px] top-[518px] left-[300px] all-[unset] box-border">
                   <div className="relative h-[48px] rounded-[15px]">
                     <div className="w-[100px] h-[48px] top-0 bg-[#3751ff] rounded-[15px] shadow-button-accent-default absolute left-0" />
                       <button onClick = {requestVerificationCode} className="absolute w-[55px] top-[14px] left-[24px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border">
@@ -170,19 +170,19 @@ export const SignUp = (): JSX.Element => {
                     </div>
                     <ButtonTextButton
                       btnLabelClassName="!text-mainblue !tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[51px]"
-                      className="!absolute !left-[171px] !w-[51px] !top-0"
+                      className="!absolute cursor-pointer !left-[171px] !w-[51px] !top-0"
                       onClick={() => navigate("/login")}
                       text="Log in"
                     />
                   </div>
                 </div>
 
-              <button className="absolute w-[388px] h-[48px] top-[595px] left-[31px] all-[unset] box-border">
+              <button className="absolute w-[388px] h-[48px] top-[595px] cursor-pointer left-[31px] all-[unset] box-border">
                 <div className="relative h-[48px] rounded-[8px]">
                   <div className="w-[388px] h-[48px] top-0 bg-[#3751ff] rounded-[8px] shadow-button-accent-default absolute left-0" />
                   <button
                     type="submit"
-                    className="absolute w-[340px] top-[14px] left-[24px] font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border"
+                    className="absolute w-[340px] top-[14px] left-[24px] cursor-pointer font-semibold-14px font-[number:var(--semibold-14px-font-weight)] text-grayscale-white text-[length:var(--semibold-14px-font-size)] text-center tracking-[var(--semibold-14px-letter-spacing)] leading-[var(--semibold-14px-line-height)] [font-style:var(--semibold-14px-font-style)] all-[unset] box-border"
                   >
                     Sign up
                   </button>
