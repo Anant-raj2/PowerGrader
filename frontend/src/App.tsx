@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import { Login } from "./components/screens/login";
 import { SignUp } from "./components/screens/signup";
 import { StudentDashboard } from "./components/screens/StudentDashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import * as UserApi from "./networks/api/user_api";
 import useAuthenticatedUser from "./hooks/useAuthenticatedUser";
 import { PageNotFound } from "./components/screens/pageNotFound";
 

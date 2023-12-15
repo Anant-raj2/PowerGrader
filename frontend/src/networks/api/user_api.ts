@@ -3,6 +3,7 @@ import api from "../axiosInstance";
 
 export async function getAuthenticatedUser() {
   const response = await api.get<User>("/api/users/authenticated-user");
+  console.log(response.data.createdAt)
   return response.data;
 }
 
