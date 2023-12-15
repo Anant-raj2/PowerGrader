@@ -4,7 +4,7 @@ import { StudentDashboard } from "./components/screens/StudentDashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useAuthenticatedUser from "./hooks/useAuthenticatedUser";
 import { PageNotFound } from "./components/screens/pageNotFound";
-
+import { Onboarding } from "./components/screens/onboarding";
 function App() {
   const { user } = useAuthenticatedUser();
 
@@ -21,6 +21,7 @@ function App() {
 
           {user && <Route path="/dashboard" element={<StudentDashboard />} />}
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/onboarding" element={<Onboarding />} />
         </Routes>
       </BrowserRouter>
     </div>
