@@ -1,4 +1,4 @@
-import { IconHideActive } from "../icons/IconHideActive/IconHideActive";
+import { IconHideActive } from "./icons/IconHideActive/IconHideActive";
 import { useState } from "react";
 import { FieldError, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
 

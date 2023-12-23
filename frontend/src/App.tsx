@@ -1,25 +1,15 @@
-import { Login } from "./components/screens/login";
-import { SignUp } from "./components/screens/signup";
-import { StudentDashboard } from "./components/screens/StudentDashboard";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 import useAuthenticatedUser from "./hooks/useAuthenticatedUser";
-import { PageNotFound } from "./components/screens/pageNotFound";
-import { Onboarding } from "./components/screens/onboarding";
+import { StudentDashboard } from "./screens/index";
+import { BrowserRouter} from "react-router-dom";
+import { NotAuthNav } from "./screens/index";
 function App() {
   const {user} = useAuthenticatedUser();
 
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          {!user && <><Route path="/login" element={<Login />} /> <Route path="/" element={<SignUp />} /></>}
-          
-          {user && <Route path="/dashboard" element={<StudentDashboard />} /> }
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      {user? <StudentDashboard/>:<NotAuthNav/>}
+    </BrowserRouter>
   );
 }
 

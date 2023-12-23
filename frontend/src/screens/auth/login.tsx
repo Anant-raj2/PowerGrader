@@ -1,16 +1,15 @@
-import { ButtonTextButton } from "../../ButtonTextButton";
-import { TextfieldLabel } from "../../TextfieldLabel";
-import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
+import { ButtonTextButton } from "../../components/index";
+import { TextfieldLabel } from "../../components/index";
+import { TextfieldLabelIcon } from "../../components/index";
 import {useForm} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { UnauthorizedError } from "../../../errors/https_errors";
-import * as UserApi from "../../../networks/api/user_api";
+import { UnauthorizedError } from "../../networks/http-errors";
+import * as UserApi from "../../networks/api/user_api";
 import { useState } from 'react';
-import useCountdown from '../../../hooks/useCountDown';
-import useAuthenticatedUser from "../../../hooks/useAuthenticatedUser";
+import useAuthenticatedUser from "../../hooks/useAuthenticatedUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { ButtonContained } from "../../ButtonContained/ButtonContained";
+import { ButtonContained } from "../../components/index";
 
 const validationSchema = yup.object({
   email: yup.string().email().required("Required"),
@@ -36,7 +35,7 @@ export const Login = (): JSX.Element => {
         const user = await UserApi.login(credentials);
         console.log(user.name);
         mutateUser(user);
-        navigate("/dashboard");
+        navigate("/");
     } catch (error) {
         if (error instanceof UnauthorizedError) {
             setErrorText("Invalid credentials");

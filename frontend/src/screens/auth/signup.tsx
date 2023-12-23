@@ -1,16 +1,16 @@
-import { ButtonTextButton } from "../../ButtonTextButton";
-import { TextfieldLabel } from "../../TextfieldLabel";
-import { TextfieldLabelIcon } from "../../TextfieldLabelIcon";
+import { ButtonTextButton } from "../../components/index";
+import { TextfieldLabel } from "../../components/index";
+import { TextfieldLabelIcon } from "../../components/index";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ConflictError } from "../../../errors/https_errors";
-import * as UserApi from "../../../networks/api/user_api";
+import { ConflictError } from "../../networks/http-errors";
+import * as UserApi from "../../networks/api/user_api";
 import { useState } from "react";
-import useCountdown from "../../../hooks/useCountDown";
-import useAuthenticatedUser from "../../../hooks/useAuthenticatedUser";
+import useCountdown from "../../hooks/useCountDown";
+import useAuthenticatedUser from "../../hooks/useAuthenticatedUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { BadRequestError } from "../../../networks/http-errors";
+import { BadRequestError } from "../../networks/http-errors";
 
 const validationSchema = yup.object({
   name: yup.string().max(20).required("Required"),

@@ -1,12 +1,3 @@
-@tailwind components;
-@tailwind utilities;
-@tailwind base;
-
-@layer components {
-  .all-\[unset\] {
-    all: unset;
-  }
-}
 
 :root {
   --accent-default: rgba(55, 81, 255, 1);
@@ -43,6 +34,7 @@
   --grayscale-gray-lightest: rgba(240, 241, 247, 1);
   --grayscale-white: rgba(255, 255, 255, 1);
   --mainblue: rgba(55, 81, 255, 1);
+  --titleblue: rgb(66, 84, 245);
   --reg-14-0-3-px-font-family: "Mulish-Regular", Helvetica;
   --reg-14-0-3-px-font-size: 14px;
   --reg-14-0-3-px-font-style: normal;
@@ -121,4 +113,52 @@ body.auth-page html.auth-page {
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+@import url('https://cdn.syncfusion.com/ej2/material.css');
+
+.sidebar {
+  box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
+}
+.nav-item,
+.navbar {
+  z-index: 10000;
+}
+@media  screen and (max-width:800px) {
+  .sidebar{
+    z-index: 10000000;
+  }
+}
+
+.e-dlg-center-center, .e-quick-popup-wrapper.e-device{
+  z-index: 1000000 !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 216, 216);
+  border-radius: 40px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* color-picker style  */
+
+ #preview {
+  background: transparent
+    url('https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png')
+    no-repeat;
+  display: inline-block;
+  height: 80px;
+  margin: 10px 0;
+  min-width: 300px;
+  max-width: 600px;
+  background-color: #008000;
+}
+
+.e-input-group:not(.e-float-icon-left), .e-input-group.e-success:not(.e-float-icon-left), .e-input-group.e-warning:not(.e-float-icon-left), .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left){
+  border: none;
 }
