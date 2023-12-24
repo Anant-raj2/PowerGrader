@@ -1,13 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { Overview, Contact, Transcript, Bar, Line, Booster, Class, Upload } from "../screens/index";
 import { Navbar, Sidebar } from "../components/index";
-
+import { useStateContext } from '../context/ContextProvider';
+import { Theme } from "../context/ContextProvider";
 export const StudentDashboard = (): JSX.Element => {
-  const activeMenu = true;
+  // const activeMenu = true;
+  const { theme, toggleTheme, activeMenu, setActiveMenu } = useStateContext();
+  useEffect(() => {
+    const currentThemeMode = localStorage.getItem('theme');
+    if (currentThemeMode) {
+      toggleTheme(currentThemeMode as Theme);
+    }
+  }, []);
+
   return (
-    <div>
+    <div className={theme === 'dark' ? 'dark' : ''}>
       <div className="flex relative dark:bg-main-dark-bg">
         {activeMenu ? (
           <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
