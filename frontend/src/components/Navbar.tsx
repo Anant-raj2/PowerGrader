@@ -2,20 +2,23 @@ import React from 'react'
 import { AiOutlineMenu } from 'react-icons/ai';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import useAuthenticatedUser from '../hooks/useAuthenticatedUser';
+import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 export const Navbar = (): JSX.Element => {
   const {user} = useAuthenticatedUser();
 
   return (
     <div className="flex justify-between md:ml-6 md:mr-6 relative">
+      <TooltipComponent content="Menu" position='BottomCenter'>
         <button
-          type="button"
-          onClick={() => {}}
-          style={{ color: "rgba(55, 81, 255, 1)" }}
-          className="relative text-xl rounded-full p-3 hover:bg-light-gray"
-        >
-          <AiOutlineMenu/>
-        </button>
+            type="button"
+            onClick={() => {}}
+            style={{ color: "rgba(55, 81, 255, 1)" }}
+            className="relative text-xl rounded-full p-3 hover:bg-light-gray"
+          >
+            <AiOutlineMenu/>
+          </button>
+      </TooltipComponent>
       <div className='flex'>
             <div
               className="flex items-center gap-2 cursor-pointer p-1 dark:hover:bg-light-gray rounded-lg"
