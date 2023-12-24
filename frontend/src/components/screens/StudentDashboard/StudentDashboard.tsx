@@ -3,7 +3,6 @@ import useAuthenticatedUser from "../../../hooks/useAuthenticatedUser";
 import * as UserApi from "../../../networks/api/user_api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
 
 export const StudentDashboard = (): JSX.Element => {
   const { user } = useAuthenticatedUser();
@@ -23,9 +22,6 @@ export const StudentDashboard = (): JSX.Element => {
       return;
     }
     console.log(user.name);
-  }
-  if (isLoggingOut) {
-    return <Skeleton count={10} />; // Display skeleton while logging out
   }
 
   return (
