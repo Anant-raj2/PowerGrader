@@ -4,7 +4,7 @@ import { StudentDashboard } from "./screens/index";
 import { BrowserRouter} from "react-router-dom";
 import { NotAuthNav } from "./screens/index";
 function App() {
-  const {user} = useAuthenticatedUser();
+  const { user } = useAuthenticatedUser();
 
   return (
     <BrowserRouter>
