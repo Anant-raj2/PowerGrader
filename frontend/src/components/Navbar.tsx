@@ -11,20 +11,23 @@ import { FaMoon } from "react-icons/fa";
 import { useStateContext, Theme } from '../context/ContextProvider';
 
 export const Navbar = (): JSX.Element => {
-  const { theme, toggleTheme } = useStateContext();
+  const { theme, toggleTheme, activeMenu, setActiveMenu, screenSize } = useStateContext();
   const {user} = useAuthenticatedUser();
 
+  const handleCloseSideBar = () => {
+    setActiveMenu(!activeMenu);
+  };
   return (
     <div className="flex justify-between md:ml-6 md:mr-6 relative">
       <Tooltip title="Menu" placement="right">
         <button
-            type="button"
-            onClick={() => {}}
-            style={{ color: "rgba(55, 81, 255, 1)" }}
-            className="relative text-xl rounded-full p-3 hover:bg-light-gray"
-          >
-            <AiOutlineMenu/>
-          </button>
+          type="button"
+          onClick={handleCloseSideBar}
+          style={{ color: "rgba(55, 81, 255, 1)" }}
+          className="relative text-xl rounded-full p-3 hover:bg-light-gray"
+        >
+          <AiOutlineMenu />
+        </button>
       </Tooltip>
       <div className='flex'>
           <div className='mt-3 mr-2'>
@@ -48,5 +51,5 @@ export const Navbar = (): JSX.Element => {
             </div>
       </div>
     </div>
-  )
-}
+  );
+};
