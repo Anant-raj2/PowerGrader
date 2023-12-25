@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { AiOutlineMenu } from 'react-icons/ai';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import useAuthenticatedUser from '../hooks/useAuthenticatedUser';
@@ -11,12 +11,31 @@ import { FaMoon } from "react-icons/fa";
 import { useStateContext, Theme } from '../context/ContextProvider';
 
 export const Navbar = (): JSX.Element => {
-  const { theme, toggleTheme, activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const { theme, toggleTheme, activeMenu, setActiveMenu, screenSize, setScreenSize } = useStateContext();
   const {user} = useAuthenticatedUser();
 
   const handleCloseSideBar = () => {
     setActiveMenu(!activeMenu);
   };
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (screenSize! <= 900) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  }, [screenSize]);
+
   return (
     <div className="flex justify-between md:ml-6 md:mr-6 relative">
       <Tooltip title="Menu" placement="right">
