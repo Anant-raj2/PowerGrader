@@ -12,7 +12,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { BadRequestError } from "../../networks/http-errors";
 import { ButtonContained } from "../../components/index";
+import React from "react";
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 const validationSchema = yup.object({
   name: yup.string().max(20).required("Required"),
   email: yup.string().email().required("Required"),
@@ -51,7 +59,7 @@ export const SignUp = (): JSX.Element => {
       setShowVerificationCodeSentText(false);
       const newUser = await UserApi.signUp(credentials);
       mutateUser(newUser);
-      navigate("/dashboard");
+      navigate("/overview");
     } catch (error) {
       if (error instanceof ConflictError || error instanceof BadRequestError) {
         setErrorText(error.message);
