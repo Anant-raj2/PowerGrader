@@ -18,17 +18,31 @@ export const Overview = (): JSX.Element => {
   }
   return (
     <>
-      <form onSubmit={logout}>
-        <h1 className='dark:text-white text-5xl'>
-            Overview
-        </h1>
-        <ButtonContained
-                btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
-                className=" !bg-mainblue !w-[388px]"
-                text="Log Out"
-                type='submit'
-        />
-      </form>
+      <div className="mt-24">
+        <div className="flex flex-wrap lg:flex-nowrap justify-center ">
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+            <div>
+                <p className="font-bold text-gray-400">UnWeighted GPA:</p>
+            </div>
+          </div>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+            <div>
+                <p className="font-bold text-gray-400">Weighted GPA:</p>
+            </div>
+          </div>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+            <div>
+                <p className="font-bold text-gray-400">Class Rank:</p>
+            </div>
+          </div>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+            <div>
+                <p className="font-bold text-gray-400">Rating:</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
     </>
   )
 }
