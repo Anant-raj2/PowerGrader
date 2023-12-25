@@ -28,6 +28,10 @@ export default function ContextProvider({ children }: ContextProviderProps){
   const [theme, setTheme] = useState<Theme>(currentTheme || 'light');
 
   const toggleTheme = (e:Theme) => {
+    if(!currentTheme){
+      localStorage.setItem('theme', 'light');
+      setTheme('light');
+    }
     if(localStorage.getItem('theme') === 'light'){
       localStorage.setItem('theme', 'dark');
       setTheme('dark');
