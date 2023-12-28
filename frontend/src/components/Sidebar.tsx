@@ -29,7 +29,16 @@ export const Sidebar = () => {
               to="/"
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware />{" "}
+              <div
+                className="bg-[#3751FF] rounded-full p-1"
+                style={{ width: "50px", height: "50px" }}
+              >
+                <img
+                  src={"https://c.animaapp.com/PUgvNGDd/img/pg-white-1.svg"}
+                  alt="Logo"
+                  className="h-full w-full"
+                />{" "}
+              </div>
               <span>
                 Power
                 <span className="dark:text-mainlightblue text-mainblue">
