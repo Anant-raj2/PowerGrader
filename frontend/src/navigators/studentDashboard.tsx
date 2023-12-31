@@ -28,11 +28,11 @@ export const StudentDashboard = (): JSX.Element => {
     <div className={theme === "dark" ? "dark" : ""}>
       <div className="flex relative dark:bg-main-dark-bg overflow-hidden">
         {activeMenu ? (
-          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white transition-all duration-700 ease-[cubic-bezier(0.68, -0.55, 0.27, 1.55)] transform translate-x-0">
             <Sidebar />
           </div>
         ) : (
-          <div className="w-0 dark:bg-secondary-dark-bg">
+          <div className="w-0 dark:bg-secondary-dark-bg transition-all duration-700 ease-[cubic-bezier(0.68, -0.55, 0.27, 1.55)] transform -translate-x-full">
             <Sidebar />
           </div>
         )}

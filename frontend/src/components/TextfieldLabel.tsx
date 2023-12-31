@@ -1,4 +1,4 @@
-import { FieldError, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
+import {UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
   className?: string;

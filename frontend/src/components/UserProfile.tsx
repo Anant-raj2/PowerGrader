@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "./Button";
 import { MdOutlineCancel } from "react-icons/md";
 import * as User from "../networks/api/user_api";

@@ -1,10 +1,9 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useAuthenticatedUser from "../hooks/useAuthenticatedUser";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
-import { pink } from "@mui/material/colors";
 import ReactSwitch from "react-switch";
 import { FaSun } from "react-icons/fa6";
 import { FaMoon } from "react-icons/fa";

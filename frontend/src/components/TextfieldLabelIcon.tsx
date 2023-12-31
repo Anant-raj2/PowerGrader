@@ -1,6 +1,6 @@
 import { IconHideActive } from "./icons/IconHideActive/IconHideActive";
 import { useState } from "react";
-import { FieldError, RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
   className: any;
