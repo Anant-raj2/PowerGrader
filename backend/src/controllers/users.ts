@@ -187,8 +187,8 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
             throw createHttpError(400, "Grades are missing");
         }
 
-        await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses}}, {new: true}).exec();
-        res.status(201).json(newClasses);
+        const updatedUser = await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses}}, {new: true}).exec();
+        res.status(201).json(updatedUser);
     }catch(error){
         next(error);
     }
