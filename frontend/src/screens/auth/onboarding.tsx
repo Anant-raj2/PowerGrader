@@ -149,10 +149,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -189,10 +190,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -229,10 +231,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -269,10 +272,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -309,10 +313,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -349,10 +354,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -389,10 +395,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -429,10 +436,11 @@ export function Onboarding() {
                 <MenuItem value={2}>B-</MenuItem>
                 <MenuItem value={1.5}>C+</MenuItem>
                 <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.5}>C-</MenuItem>
+                <MenuItem value={0.74}>C-</MenuItem>
                 <MenuItem value={0.5}>D+</MenuItem>
+                <MenuItem value={0.25}>D</MenuItem>
                 <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0.}>D</MenuItem>
+                <MenuItem value={0}>F</MenuItem>
               </Select>
           </FormControl>
           <ButtonContained

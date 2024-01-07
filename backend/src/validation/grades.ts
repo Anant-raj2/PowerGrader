@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 const classSchema = yup.string().max(30).min(3);
 const creditSchema = yup.number().max(2).min(0);
-const gradeSchema = yup.number().positive().integer().max(4);
+const gradeSchema = yup.number().positive().max(4);
 
 export const createGradeSchema = yup.object({
     body: yup.object({
