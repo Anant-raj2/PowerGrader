@@ -39,7 +39,7 @@ export const Login = (): JSX.Element => {
         const user = await UserApi.login(credentials);
         console.log(user.name);
         mutateUser(user);
-        navigate("/");
+        navigate("/overview");
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         setErrorText("Invalid credentials");

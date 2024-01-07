@@ -1,5 +1,5 @@
 import * as UserApi from "../networks/api/user_api";
-import { UnauthorizedError } from "../networks/http-errors";
+import { UnauthorizedError, BadRequestError } from "../networks/http-errors";
 import useSWR from "swr";
 
 export default function useAuthenticatedUser() {
@@ -8,7 +8,7 @@ export default function useAuthenticatedUser() {
             try {
                 return await UserApi.getAuthenticatedUser();
             } catch (error) {
-                if (error instanceof UnauthorizedError) {
+                if (error instanceof UnauthorizedError || error instanceof BadRequestError) {
                     return null;
                 } else {
                     throw error;

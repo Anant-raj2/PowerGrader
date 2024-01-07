@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import usersRoutes from "./routes/users";
-import gradesRoutes from "./routes/grades";
 import session from "express-session";
 import env from "./util/validateEnv";
 import errorHandler from "./middlewares/errorHandler";
@@ -25,7 +24,6 @@ app.use(express.json());
 app.use(session(sessionConfig));
 
 app.use("/api/users", usersRoutes);
-app.use("/api/grades", requiresAuth, gradesRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(400, "Page Not found"));

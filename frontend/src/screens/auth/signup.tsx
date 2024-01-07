@@ -59,7 +59,7 @@ export const SignUp = (): JSX.Element => {
       setShowVerificationCodeSentText(false);
       const newUser = await UserApi.signUp(credentials);
       mutateUser(newUser);
-      navigate("/overview");
+      navigate("/onboard");
     } catch (error) {
       if (error instanceof ConflictError || error instanceof BadRequestError) {
         setErrorText(error.message);

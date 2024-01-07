@@ -1,4 +1,5 @@
 import { User } from "../../models/user";
+import { Grade } from "../../models/grade";
 import api from "../axiosInstance";
 
 export async function getAuthenticatedUser() {
@@ -38,18 +39,40 @@ export async function logout() {
   await api.post("api/users/logout");
 }
 
-// interface GoogleLoginBody{
-//   name: string;
-//   email: string;
-// }
+interface CreateGradeBody {
+  class1: string,
+  credit1: number,
+  grade1: number,
 
-// export async function loginGoogle(credentials: GoogleLoginBody): Promise<User> {
-//   const response = await fetchData("/api/users/login-google", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(credentials),
-//   });
-//   return response.json();
-// }
+  class2: string,
+  credit2: number,
+  grade2: number,
+
+  class3: string,
+  credit3: number,
+  grade3: number,
+
+  class4: string,
+  credit4: number,
+  grade4: number,
+
+  class5: string,
+  credit5: number,
+  grade5: number,
+
+  class6: string,
+  credit6: number,
+  grade6: number,
+
+  class7: string,
+  credit7: number,
+  grade7: number,
+
+  class8: string,
+  credit8: number,
+  grade8: number,
+}
+
+export async function postAcademics(credentials: CreateGradeBody) {
+  await api.post<Grade>("api/users/post", credentials);
+}
