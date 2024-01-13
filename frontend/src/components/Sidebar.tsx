@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
-import { links } from "../data/dummy";
+import { links } from "../data/links";
 
 import { useStateContext } from "../context/ContextProvider";
 

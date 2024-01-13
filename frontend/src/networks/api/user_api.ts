@@ -40,6 +40,8 @@ export async function logout() {
 }
 
 interface CreateGradeBody {
+  gradeLevel: number,
+  
   class1: string,
   credit1: number,
   grade1: number,

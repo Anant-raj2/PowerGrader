@@ -15,7 +15,7 @@ export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(401, "User not authenticated");
         }
 
-        const user = await UserModel.findById(authenticatedUserId).select("+email+createdAt+classes").exec();
+        const user = await UserModel.findById(authenticatedUserId).select("+email+createdAt+classes+gradeLevel").exec();
         if(user!.classes.length === 0){
             throw createHttpError(400, "User has not posted any grades");
         }
@@ -130,6 +130,8 @@ export const requestVerificationCode: RequestHandler<unknown, unknown, RequestVe
 
 export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, unknown> = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
+    const gradeLevel = req.body.gradeLevel;
+
     const class1 = req.body.class1;
     const credit1 = req.body.credit1;
     const grade1 = req.body.grade1;
@@ -176,7 +178,9 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
         if(!authenticatedUserId){
             throw createHttpError(401, "User not authenticated");
         }
-
+        if(!gradeLevel){
+            throw createHttpError(400, "Grade level is missing");
+        }
         if(!class1 || !class2 || !class3 || !class4 || !class5 || !class6 || !class7 || !class8){
             throw createHttpError(400, "Classes are missing");
         }
@@ -187,7 +191,7 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
             throw createHttpError(400, "Grades are missing");
         }
 
-        const updatedUser = await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses}}, {new: true}).exec();
+        const updatedUser = await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses, gradeLevel}}, {new: true}).exec();
         res.status(201).json(updatedUser);
     }catch(error){
         next(error);

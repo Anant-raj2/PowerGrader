@@ -1,20 +1,8 @@
-import React from "react";
-import { ButtonContained } from "../components/index";
-import * as User from "../networks/api/user_api";
-import { useNavigate } from "react-router-dom";
-import { useStateContext, Theme } from "../context/ContextProvider";
-import ReactSwitch from "react-switch";
-import { FaSun } from "react-icons/fa6";
-import { FaMoon } from "react-icons/fa";
+import useAuthenticatedUser from "../hooks/useAuthenticatedUser";
 
 export const Overview = (): JSX.Element => {
-  const { theme, toggleTheme } = useStateContext();
-  const navigate = useNavigate();
-  const logout = () => {
-    User.logout();
-    navigate("/login");
-    window.location.reload();
-  };
+  const { user } = useAuthenticatedUser();
+  
   return (
     <>
       <div className="mt-24">

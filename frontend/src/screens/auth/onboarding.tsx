@@ -1,457 +1,325 @@
-import React, { useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import NativeSelect from '@mui/material/NativeSelect';
-import InputBase from '@mui/material/InputBase';
-import Paper from '@mui/material/Paper';
-import { ButtonContained } from '../../components';
-import { FormControlLabel, FormHelperText } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { FormLabel, FormControl, Input, Select, NumberDecrementStepper, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberInputField, Button, ButtonGroup, FormErrorMessage, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import * as yup from "yup";
+import { Form, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as UserApi from "../../networks/api/user_api";
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import { BadRequestError } from '../../networks/http-errors';
 
 const validationSchema = yup.object({
-  class1: yup.string().max(21).required("Required"),
-  credit1: yup.number().required("Required"),
-  grade1: yup.number().required("Required"),
+  gradeLevel: yup.number().required("Field is required"),
 
-  class2: yup.string().max(21).required("Required"),
-  credit2: yup.number().required("Required"),
-  grade2: yup.number().required("Required"),
+  class1: yup.string().max(21).required("Field is required"),
+  credit1: yup.number().positive().required("Field is required"),
+  grade1: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class3: yup.string().max(21).required("Required"),
-  credit3: yup.number().required("Required"),
-  grade3: yup.number().required("Required"),
+  class2: yup.string().max(21).required("Field is required"),
+  credit2: yup.number().required("Field is required"),
+  grade2: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class4: yup.string().max(21).required("Required"),
-  credit4: yup.number().required("Required"),
-  grade4: yup.number().required("Required"),
+  class3: yup.string().max(21).required("Field is required"),
+  credit3: yup.number().required("Field is required"),
+  grade3: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class5: yup.string().max(21).required("Required"),
-  credit5: yup.number().required("Required"),
-  grade5: yup.number().required("Required"),
+  class4: yup.string().max(21).required("Field is required"),
+  credit4: yup.number().required("Field is required"),
+  grade4: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class6: yup.string().max(21).required("Required"),
-  credit6: yup.number().required("Required"),
-  grade6: yup.number().required("Required"),
+  class5: yup.string().max(21).required("Field is required"),
+  credit5: yup.number().required("Field is required"),
+  grade5: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class7: yup.string().max(21).required("Required"),
-  credit7: yup.number().required("Required"),
-  grade7: yup.number().required("Required"),
+  class6: yup.string().max(21).required("Field is required"),
+  credit6: yup.number().required("Field is required"),
+  grade6: yup.number().positive("Number is the wrong type").required("Field is required"),
 
-  class8: yup.string().max(21).required("Required"),
-  credit8: yup.number().required("Required"),
-  grade8: yup.number().required("Required"),
+  class7: yup.string().max(21).required("Field is required"),
+  credit7: yup.number().required("Field is required"),
+  grade7: yup.number().positive("Number is the wrong type").required("Field is required"),
+
+  class8: yup.string().max(21).required("Field is required"),
+  credit8: yup.number().required("Field is required"),
+  grade8: yup.number().positive("Number is the wrong type").required("Field is required"),
 });
 
 type ClassData = yup.InferType<typeof validationSchema>;
 
-const FormBox = styled(Paper)(({ theme }) => ({
-  width: 520,
-  height: 750,
-  padding: theme.spacing(2),
-  backgroundColor: "#fff",
-  borderRadius: 20,
-  ...theme.typography.body2,
-  textAlign: 'center',
-}))
-
-const Input = styled(InputBase)(({ theme }) => ({
-  'label + &': {
-    marginTop: theme.spacing(3),
-  },
-  '& .MuiInputBase-input': {
-    borderRadius: 5,
-    position: 'relative',
-    backgroundColor: "#FDFEFE",
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}));
-
 export function Onboarding() {
+  const [errorText, setErrorText] = useState<string | null>(null);
   const navigate = useNavigate();
-  
   const {
     register,
     handleSubmit,
+    getValues,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<ClassData>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: ClassData) => {
-    console.log(data);
-    UserApi.postAcademics(data);
-    navigate("/overview");
-    window.location.reload();
+  async function onSubmit(data: ClassData) {
+    try {
+      setErrorText(null);
+      const user = await UserApi.postAcademics(data);
+      navigate("/overview");
+    } catch (error) {
+      if (error instanceof BadRequestError) {
+        setErrorText(error.message);
+        console.log(error.message);
+      } else {
+        console.error(error);
+        alert(error);
+      }
+    }
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className='bg-[#363740] flex flex-col sm:flex-row justify-center items-center w-full h-full min-h-screen'>
-        <FormBox square={false} elevation={24}>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class1")} error={!!errors.class1}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit1")}
-                error={!!errors.credit1}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade1}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade1")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class2")} error={!!errors.class2}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit2")}
-                error={!!errors.credit2}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade2}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade2")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class3")} error={!!errors.class3}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit3")}
-                error={!!errors.credit3}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade3}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade3")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class4")} error={!!errors.class4}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit4")}
-                error={!!errors.credit4}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade4}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade4")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class5")} error={!!errors.class5}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit5")}
-                error={!!errors.credit5}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade5}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade5")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class6")} error={!!errors.class6}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit6")}
-                error={!!errors.credit6}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade6}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade6")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class7")} error={!!errors.class7}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit7")}
-                error={!!errors.credit7}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade7}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade7")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Class</InputLabel>
-            <Input required={true} type="text" defaultValue='' {...register("class8")} error={!!errors.class8}/>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Credits</InputLabel>
-              <Select
-                input={<Input />}
-                required={true}
-                {...register("credit8")}
-                error={!!errors.credit8}
-                defaultValue=''
-              >
-                <MenuItem value={0.5}>0.5</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel>Grade</InputLabel>
-              <Select
-                error={!!errors.grade8}
-                input={<Input />}
-                required={true}
-                defaultValue=''
-                {...register("grade8")}
-              >
-                <MenuItem value={4}>A</MenuItem>
-                <MenuItem value={3.5}>A-</MenuItem>
-                <MenuItem value={3}>B+</MenuItem>
-                <MenuItem value={2.5}>B</MenuItem>
-                <MenuItem value={2}>B-</MenuItem>
-                <MenuItem value={1.5}>C+</MenuItem>
-                <MenuItem value={1}>C</MenuItem>
-                <MenuItem value={0.74}>C-</MenuItem>
-                <MenuItem value={0.5}>D+</MenuItem>
-                <MenuItem value={0.25}>D</MenuItem>
-                <MenuItem value={0.25}>D-</MenuItem>
-                <MenuItem value={0}>F</MenuItem>
-              </Select>
-          </FormControl>
-          <ButtonContained
-                  btnLabelClassName="!tracking-[var(--semibold-14px-letter-spacing)] !text-[length:var(--semibold-14px-font-size)] ![font-style:var(--semibold-14px-font-style)] !font-[number:var(--semibold-14px-font-weight)] !font-semibold-14px !leading-[var(--semibold-14px-line-height)] !w-[340px]"
-                  className="!bg-mainblue !w-[388px]"
-                  text="Next"
-                  type="submit"
-                />
-        </FormBox>
-        
-      </div>
+            <div className='w-[652px] sm:w-[752px] h-[800px] sm:h-[900px] bg-grayscale-white rounded-[30px] overflow-hidden border border-solid border-grayscale-divider p-5'>
+            {errorText && (
+                  <Alert status='error'>
+                    <AlertIcon />
+                    <AlertTitle>{errorText}</AlertTitle>
+                  </Alert>
+                )}
+                <div className='flex flex-col space-y-4'>
+                  <div className='flex flex-row justify-center ml-[140px] w-[448px]'>
+                    <FormControl isInvalid = {errors.gradeLevel && true}>
+                        <FormLabel>Grade Level</FormLabel>
+                        <Select placeholder='Grade Level' {...register("gradeLevel")}>
+                        <option value={9}>9</option>
+                        <option value={10}>10</option>
+                        <option value={11}>11</option>
+                        <option value={12}>12</option>
+                        </Select>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class1 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class1")} />
+                        <FormErrorMessage>{errors.class1 && errors.class1.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit1 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit1")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit1 && errors.credit1.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade1 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade1")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade1 && errors.grade1.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class2 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class2")} />
+                        <FormErrorMessage>{errors.class2 && errors.class2.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit2 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit2")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit2 && errors.credit2.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade2 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade2")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade2 && errors.grade2.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class3 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class3")} />
+                        <FormErrorMessage>{errors.class3 && errors.class3.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit3 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit3")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit3 && errors.credit3.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade3 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade3")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade3 && errors.grade3.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class4 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class4")} />
+                        <FormErrorMessage>{errors.class4 && errors.class4.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit4 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit4")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit4 && errors.credit4.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade4 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade4")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade4 && errors.grade4.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class5 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class5")} />
+                        <FormErrorMessage>{errors.class5 && errors.class5.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit5 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit5")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit5 && errors.credit5.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade5 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade5")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade5 && errors.grade5.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class6 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class6")} />
+                        <FormErrorMessage>{errors.class6 && errors.class6.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit6 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit6")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit6 && errors.credit6.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade6 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade6")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade6 && errors.grade6.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class7 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class7")} />
+                        <FormErrorMessage>{errors.class7 && errors.class7.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit7 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit7")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit7 && errors.credit7.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade7 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade7")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade7 && errors.grade7.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                  <div className='flex flex-row space-x-7 justify-center'>
+                    <FormControl isInvalid = {errors.class8 && true}>
+                        <FormLabel>Class</FormLabel>
+                        <Input placeholder="Class" {...register("class8")} />
+                        <FormErrorMessage>{errors.class8 && errors.class8.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.credit8 && true}>
+                        <FormLabel>Credits</FormLabel>
+                        <Select placeholder='Credits' {...register("credit8")}>
+                        <option value={0.5}>0.5</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        </Select>
+                        <FormErrorMessage>{errors.credit8 && errors.credit8.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid = {errors.grade8 && true}>
+                        <FormLabel>Grade</FormLabel>
+                        <NumberInput min={0} max={4} precision={2} step={0.1}>
+                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade8")}/>
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+                        <FormErrorMessage>{errors.grade8 && errors.grade8.message}</FormErrorMessage>
+                    </FormControl>
+                  </div>
+                </div>
+
+                <div className='flex flex-row justify-center mt-10'>
+                    <ButtonGroup >
+                      <Button colorScheme='blue' className='!w-[338px]' type = "submit" isLoading = {isSubmitting}>Register Classes</Button>
+                    </ButtonGroup>
+                </div>
+            </div>
+        </div>
     </form>
   );
 }

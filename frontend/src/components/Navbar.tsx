@@ -2,12 +2,11 @@ import {useEffect} from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useAuthenticatedUser from "../hooks/useAuthenticatedUser";
-import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
+import {Avatar, Tooltip} from '@chakra-ui/react';
 import ReactSwitch from "react-switch";
 import { FaSun } from "react-icons/fa6";
 import { FaMoon } from "react-icons/fa";
-import { useStateContext, Theme } from "../context/ContextProvider";
+import { useStateContext } from "../context/ContextProvider";
 
 import { UserProfile } from "./UserProfile";
 
@@ -48,7 +47,7 @@ export const Navbar = (): JSX.Element => {
 
   return (
     <div className="flex justify-between md:ml-6 md:mr-6 relative">
-      <Tooltip title="Menu" placement="right">
+      <Tooltip label="Menu">
         <button
           type="button"
           onClick={handleCloseSideBar}
@@ -86,9 +85,7 @@ export const Navbar = (): JSX.Element => {
               {user!.name}
             </span>
           </p>
-          <Avatar sx={{ bgcolor: "#3751FF" }}>
-            {user!.name.substring(0, 1)}
-          </Avatar>
+          <Avatar name = {user!.name.substring(0, 2)}/>
           <MdKeyboardArrowDown className="text-gray-400" />
         </div>
 
