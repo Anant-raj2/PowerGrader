@@ -40,7 +40,7 @@ export const StudentDashboard = (): JSX.Element => {
           className={
             activeMenu
               ? "bg-main-bg dark:bg-main-dark-bg min-h-screen md:ml-72 w-full  "
-              : "bg-main-bg w-full dark:bg-main-dark-bg min-h-screen flex-2 "
+              : "bg-main-bg w-full dark:bg-main-dark-bg min-h-screen flex-2 justify-center items-center "
           }
         >
           <div className="fixed md:static dark:bg-main-dark-bg bg-main-bg navbar w-full ">
