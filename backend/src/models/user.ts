@@ -5,11 +5,24 @@ const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   gradeLevel: { type: Number },
+  weightedGPA: { type: Number },
+  unWeightedGPA: { type: Number },
+  rating: { type: String },
+  bestClasses: [
+    {
+      class: { type: String },
+    }
+  ],
+  worstClasses: [
+    {
+      class: { type: String },
+    }
+  ],
   classes: [
     {
         class: { type: String, required: true },
         credit: { type: Number, required: true },
-        grade: { type: Number, required: true },
+        grade: { type: String, required: true },
     },
 ],
 }, {timestamps: true});

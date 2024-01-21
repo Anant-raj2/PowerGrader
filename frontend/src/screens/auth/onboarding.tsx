@@ -1,9 +1,9 @@
-import { FormLabel, FormControl, Input, Select, NumberDecrementStepper, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberInputField, Button, ButtonGroup, FormErrorMessage, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
+import { FormLabel, FormControl, Input, Select, Button, ButtonGroup, FormErrorMessage, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import * as yup from "yup";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as UserApi from "../../networks/api/user_api";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { BadRequestError } from '../../networks/http-errors';
 
@@ -12,35 +12,35 @@ const validationSchema = yup.object({
 
   class1: yup.string().max(21).required("Field is required"),
   credit1: yup.number().positive().required("Field is required"),
-  grade1: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade1: yup.string().max(2).required("Field is required"),
 
   class2: yup.string().max(21).required("Field is required"),
   credit2: yup.number().required("Field is required"),
-  grade2: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade2: yup.string().max(2).required("Field is required"),
 
   class3: yup.string().max(21).required("Field is required"),
   credit3: yup.number().required("Field is required"),
-  grade3: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade3: yup.string().max(2).required("Field is required"),
 
   class4: yup.string().max(21).required("Field is required"),
   credit4: yup.number().required("Field is required"),
-  grade4: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade4: yup.string().max(2).required("Field is required"),
 
   class5: yup.string().max(21).required("Field is required"),
   credit5: yup.number().required("Field is required"),
-  grade5: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade5: yup.string().max(2).required("Field is required"),
 
   class6: yup.string().max(21).required("Field is required"),
   credit6: yup.number().required("Field is required"),
-  grade6: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade6: yup.string().max(2).required("Field is required"),
 
   class7: yup.string().max(21).required("Field is required"),
   credit7: yup.number().required("Field is required"),
-  grade7: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade7: yup.string().max(2).required("Field is required"),
 
   class8: yup.string().max(21).required("Field is required"),
   credit8: yup.number().required("Field is required"),
-  grade8: yup.number().positive("Number is the wrong type").required("Field is required"),
+  grade8: yup.string().max(2).required("Field is required"),
 });
 
 type ClassData = yup.InferType<typeof validationSchema>;
@@ -51,8 +51,6 @@ export function Onboarding() {
   const {
     register,
     handleSubmit,
-    getValues,
-    trigger,
     formState: { errors, isSubmitting },
   } = useForm<ClassData>({
     resolver: yupResolver(validationSchema),
@@ -61,7 +59,7 @@ export function Onboarding() {
   async function onSubmit(data: ClassData) {
     try {
       setErrorText(null);
-      const user = await UserApi.postAcademics(data);
+      await UserApi.postAcademics(data);
       navigate("/overview");
     } catch (error) {
       if (error instanceof BadRequestError) {
@@ -83,6 +81,7 @@ export function Onboarding() {
                     <AlertTitle>{errorText}</AlertTitle>
                   </Alert>
                 )}
+
                 <div className='flex flex-col space-y-4'>
                   <div className='flex flex-row justify-center ml-[140px] w-[448px]'>
                     <FormControl isInvalid = {errors.gradeLevel && true}>
@@ -112,13 +111,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade1 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade1")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade1")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade1 && errors.grade1.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -139,13 +145,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade2 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade2")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade2")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade2 && errors.grade2.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -166,13 +179,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade3 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade3")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade3")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade3 && errors.grade3.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -193,13 +213,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade4 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade4")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade4")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade4 && errors.grade4.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -220,13 +247,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade5 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade5")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade5")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade5 && errors.grade5.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -247,13 +281,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade6 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade6")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade6")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade6 && errors.grade6.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -274,13 +315,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade7 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade7")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade7")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade7 && errors.grade7.message}</FormErrorMessage>
                     </FormControl>
                   </div>
@@ -301,13 +349,20 @@ export function Onboarding() {
                     </FormControl>
                     <FormControl isInvalid = {errors.grade8 && true}>
                         <FormLabel>Grade</FormLabel>
-                        <NumberInput min={0} max={4} precision={2} step={0.1}>
-                          <NumberInputField placeholder='Standard (eg: 3.54)' {...register("grade8")}/>
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Select placeholder='Grades' {...register("grade8")}>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        </Select>
                         <FormErrorMessage>{errors.grade8 && errors.grade8.message}</FormErrorMessage>
                     </FormControl>
                   </div>

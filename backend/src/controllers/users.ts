@@ -191,7 +191,53 @@ export const postAcademics: RequestHandler<unknown, unknown, CreateGradeBody, un
             throw createHttpError(400, "Grades are missing");
         }
 
-        const updatedUser = await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses, gradeLevel}}, {new: true}).exec();
+        let weightedGPA = 0;
+        let unWeightedGPA = 0;
+        let rating = "";
+        for(var i = 0; i < newClasses.length; i++){
+            switch(newClasses[i].grade){
+                case "A":
+                    unWeightedGPA += 4 * newClasses[i].credit;
+                    break;
+                case "A-":
+                    unWeightedGPA += 3.67 * newClasses[i].credit;
+                    break;
+                case "B+":
+                    unWeightedGPA += 3.33 * newClasses[i].credit;
+                    break;
+                case "B":
+                    unWeightedGPA += 3.0 * newClasses[i].credit;
+                    break;
+                case "B-":
+                    unWeightedGPA += 2.67 * newClasses[i].credit;
+                    break;
+                case "C+":
+                    unWeightedGPA += 2.33 * newClasses[i].credit;
+                    break;
+                case "C":
+                    unWeightedGPA += 2.0 * newClasses[i].credit;
+                    break;
+                case "C-":
+                    unWeightedGPA += 1.67 * newClasses[i].credit;
+                    break;
+                case "D+":
+                    unWeightedGPA += 1.33 * newClasses[i].credit;
+                    break;
+                case "D":
+                    unWeightedGPA += 1.0 * newClasses[i].credit;
+                    break;
+                case "D-":
+                    unWeightedGPA += 0.67 * newClasses[i].credit;
+                    break;
+                case "F":
+                    unWeightedGPA += 0.0 * newClasses[i].credit;
+                    break;
+                default:
+                    throw createHttpError(400, "Invalid grade");
+            }
+        }
+        unWeightedGPA /= newClasses.length;
+        const updatedUser = await UserModel.findOneAndUpdate({_id: authenticatedUserId}, {$set: {classes: newClasses, gradeLevel, unWeightedGPA, weightedGPA, rating}}, {new: true}).exec();
         res.status(201).json(updatedUser);
     }catch(error){
         next(error);
