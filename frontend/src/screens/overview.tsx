@@ -11,7 +11,7 @@ export const Overview = (): JSX.Element => {
             <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-96 p-8 pt-9 m-5 bg-hero-pattern bg-no-repeat bg-cover bg-center flex items-start justify-center">
               <div className="flex flex-col items-center">
                 <p className="font-normal text-gray-400 text-2xl">GPA</p>
-                <p className="font-bold text-gray-400 text-5xl pt-3">4.0</p>
+                <p className="font-bold gradient-text text-5xl pt-3">4.0</p>
               </div>
             </div>
             <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-96 p-8 pt-9 m-5 bg-hero-pattern bg-no-repeat bg-cover bg-center flex items-start justify-center">
@@ -19,13 +19,15 @@ export const Overview = (): JSX.Element => {
                 <p className="font-normal text-gray-400 text-2xl">
                   Weighted GPA
                 </p>
-                <p className="font-bold text-gray-400 text-5xl pt-3">4.20</p>
+                <p className="font-bold gradient-text text-5xl pt-3">4.20</p>
               </div>
             </div>
             <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-96 p-8 pt-9 m-5 bg-hero-pattern bg-no-repeat bg-cover bg-center flex items-start justify-center">
               <div className="flex flex-col items-center">
                 <p className="font-normal text-gray-400 text-2xl">Rating</p>
-                <p className="font-bold text-gray-400 text-5xl pt-3">Average</p>
+                <p className="font-bold green-gradient-text text-5xl pt-3">
+                  Good
+                </p>
               </div>
             </div>
           </div>

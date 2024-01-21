@@ -169,3 +169,16 @@ body.auth-page html.auth-page {
 .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
   border: none;
 }
+
+.gradient-text {
+  background: linear-gradient(to right, #3751ff, #6790ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* This makes the text color transparent */
+}
+.green-gradient-text {
+  background: linear-gradient(to right, #00ff00, #007f00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
