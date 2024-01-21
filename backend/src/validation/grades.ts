@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 const classSchema = yup.string().max(30).min(3);
 const creditSchema = yup.number().max(2).min(0);
-const gradeSchema = yup.number().positive("Number must be positive").max(4, "Number must be less than or equal to 4");
+const gradeSchema = yup.string().max(2, "Grade must be in correct format!");
 const gradeLevelSchema = yup.number().positive().max(12);
 export const createGradeSchema = yup.object({
     body: yup.object({
