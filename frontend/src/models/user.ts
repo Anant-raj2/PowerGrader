@@ -3,4 +3,9 @@ export interface User {
   email: string;
   createdAt: string;
   gradeLevel: number;
+  weightedGPA: number;
+  unWeightedGPA: number;
+  worstClasses: [];
+  bestClasses: [];
+  classes: [];
 }
