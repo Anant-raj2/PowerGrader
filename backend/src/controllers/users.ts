@@ -15,7 +15,7 @@ export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(401, "User not authenticated");
         }
 
-        const user = await UserModel.findById(authenticatedUserId).select("+email+createdAt+classes+gradeLevel").exec();
+        const user = await UserModel.findById(authenticatedUserId).exec();
         if(user!.classes.length === 0){
             throw createHttpError(400, "User has not posted any grades");
         }

@@ -5,7 +5,6 @@ export { StudentDashboard } from '../layouts/studentDashboard';
 export { PageNotFound } from './pageNotFound';
 export { Overview } from './overview';
 export { Contact } from './contact';
-export { Bar } from './bar';
 export { Line } from './line';
 export { Transcript } from './transcript';
 export { NotAuthNav } from '../layouts/notAuthNav';

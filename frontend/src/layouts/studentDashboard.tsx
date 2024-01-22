@@ -5,7 +5,6 @@ import {
   Overview,
   Contact,
   Transcript,
-  Bar,
   Line,
   Booster,
   Class,
@@ -56,7 +55,6 @@ export const StudentDashboard = (): JSX.Element => {
               <Route path="/messenger" element={<Contact />} />
               <Route path="/transcript" element={<Transcript />} />
               <Route path="/line" element={<Line />} />
-              <Route path="/bar" element={<Bar />} />
               <Route path="/classmates" element={<Class />} />
               <Route path="/booster" element={<Booster />} />
               <Route path="/ai-upload" element={<Upload />} />
