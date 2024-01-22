@@ -5,11 +5,8 @@ import {
   Overview,
   Contact,
   Transcript,
-  Bar,
-  Line,
   Booster,
   Class,
-  Upload,
 } from "../screens/index";
 import { Navbar, Sidebar } from "../components/index";
 import { useStateContext } from "../context/ContextProvider";
@@ -55,11 +52,8 @@ export const StudentDashboard = (): JSX.Element => {
               {/* Pages */}
               <Route path="/messenger" element={<Contact />} />
               <Route path="/transcript" element={<Transcript />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/bar" element={<Bar />} />
               <Route path="/classmates" element={<Class />} />
               <Route path="/booster" element={<Booster />} />
-              <Route path="/ai-upload" element={<Upload />} />
             </Routes>
           </div>
         </div>
