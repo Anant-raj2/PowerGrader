@@ -158,6 +158,38 @@ export const requestVerificationCode: RequestHandler<
     next(error);
   }
 };
+function gradeToNumber(grade: string): number {
+  switch (grade) {
+    case "A+":
+      return 4.33;
+    case "A":
+      return 4.0;
+    case "A-":
+      return 3.67;
+    case "B+":
+      return 3.33;
+    case "B":
+      return 3.0;
+    case "B-":
+      return 2.67;
+    case "C+":
+      return 2.33;
+    case "C":
+      return 2.0;
+    case "C-":
+      return 1.67;
+    case "D+":
+      return 1.33;
+    case "D":
+      return 1.0;
+    case "D-":
+      return 0.67;
+    case "F":
+      return 0.0;
+    default:
+      return 0.0;
+  }
+}
 
 export const postAcademics: RequestHandler<
   unknown,
@@ -253,10 +285,9 @@ export const postAcademics: RequestHandler<
     ) {
       throw createHttpError(400, "Grades are missing");
     }
-
+    const totalCredits = newClasses.reduce((sum, cls) => sum + cls.credit, 0);
     const weightedGPA = 0;
     let unWeightedGPA = 0;
-    const rating = "";
     for (let i = 0; i < newClasses.length; i++) {
       switch (newClasses[i].grade) {
         case "A":
@@ -299,7 +330,23 @@ export const postAcademics: RequestHandler<
           throw createHttpError(400, "Invalid grade");
       }
     }
-    unWeightedGPA /= newClasses.length;
+    unWeightedGPA /= totalCredits;
+    unWeightedGPA = Math.round(unWeightedGPA * 1000) / 1000;
+
+    newClasses.sort((a, b) => gradeToNumber(b.grade) - gradeToNumber(a.grade));
+    const bestClasses = newClasses.slice(0, 3);
+    const worstClasses = newClasses.slice(-3);
+
+    let rating = "";
+    const gpa = unWeightedGPA;
+
+    if (gpa >= 3.5) {
+      rating = "Great";
+    } else if (gpa >= 3.0) {
+      rating = "Good";
+    } else {
+      rating = "Poor";
+    }
     const updatedUser = await UserModel.findOneAndUpdate(
       { _id: authenticatedUserId },
       {
@@ -309,6 +356,8 @@ export const postAcademics: RequestHandler<
           unWeightedGPA,
           weightedGPA,
           rating,
+          bestClasses,
+          worstClasses,
         },
       },
       { new: true }

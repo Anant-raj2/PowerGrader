@@ -176,8 +176,22 @@ body.auth-page html.auth-page {
   background-clip: text;
   color: transparent; /* This makes the text color transparent */
 }
-.green-gradient-text {
+.great-text {
+  background: linear-gradient(to right, #ffd700, #ffa500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.good-text {
   background: linear-gradient(to right, #00ff00, #007f00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.needs-improvement-text {
+  background: linear-gradient(to right, #ff0000, #ff7f7f);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
