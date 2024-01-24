@@ -15,8 +15,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as UserApi from "../../networks/api/user_api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BadRequestError } from "../../networks/http-errors";
+import { useNavigate } from 'react-router-dom'
+import { BadRequestError } from '../../networks/http-errors';
+import { ClassesAutocomplete } from '../../components/Autocomplete';
 
 const validationSchema = yup.object({
   gradeLevel: yup.number().required("Field is required"),
