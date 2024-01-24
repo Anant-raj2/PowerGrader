@@ -3,10 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import {
   Overview,
-  Contact,
   Transcript,
   Booster,
-  Class,
 } from "../screens/index";
 import { Navbar, Sidebar } from "../components/index";
 import { useStateContext } from "../context/ContextProvider";
@@ -50,9 +48,7 @@ export const StudentDashboard = (): JSX.Element => {
               <Route path="/overview" element={<Overview />} />
 
               {/* Pages */}
-              <Route path="/messenger" element={<Contact />} />
               <Route path="/transcript" element={<Transcript />} />
-              <Route path="/classmates" element={<Class />} />
               <Route path="/booster" element={<Booster />} />
             </Routes>
           </div>

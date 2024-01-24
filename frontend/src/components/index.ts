@@ -1,3 +1,4 @@
+export { ClassesAutocomplete } from './Autocomplete';
 export { ButtonTextButton } from './ButtonTextButton';
 export { TextfieldLabel } from './TextfieldLabel';
 export { TextfieldLabelIcon } from './TextfieldLabelIcon';
