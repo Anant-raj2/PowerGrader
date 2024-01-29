@@ -60,12 +60,14 @@ export const Transcript: React.FC = () => {
     return <div>Loading...</div>;
   }
   return (
-    <Box className="mt-[-1.9rem] flex flex-col justify-center items-center h-screen">
+    <Box className="mt-[-1.9rem] flex flex-col justify-center items-center h-screen ">
       <Box
         id="transcript"
-        className="bg-[#363740] p-4 text-white w-1/2 h-3/4 flex flex-col"
+        className="bg-[#363740] p-4 text-white w-1/2 h-3/4 flex flex-col rounded-xl shadow-xl"
       >
-        <Text className="text-2xl mb-4 text-center text-white">Transcript</Text>
+        <Text className="text-2xl mb-4 text-center  text-white">
+          Transcript
+        </Text>
 
         <Table
           variant="simple"
@@ -75,9 +77,11 @@ export const Transcript: React.FC = () => {
         >
           <Thead>
             <Tr>
-              <Th>Class</Th>
-              <Th>Grade</Th>
-              <Th isNumeric>Credits</Th>
+              <Th color="gray.400">Class</Th>
+              <Th color="gray.400">Grade</Th>
+              <Th isNumeric color="gray.400">
+                Credits
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -91,7 +95,15 @@ export const Transcript: React.FC = () => {
               ))}
           </Tbody>
         </Table>
-        <Box bg="#3751FF" p={4} mt={4} color="white" borderRadius="md">
+        <Box
+          bg="#3751FF"
+          p={4}
+          mt={4}
+          color="white"
+          borderRadius="md"
+          w="850px"
+          maxW="100%"
+        >
           <Flex
             bg="#3751FF"
             p={4}
