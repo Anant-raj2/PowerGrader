@@ -257,40 +257,41 @@ export const postAcademics: RequestHandler<
     const weightedGPA = 0;
     let unWeightedGPA = 0;
     const rating = "";
+    let creditCounter: number = 0;
     for (let i = 0; i < newClasses.length; i++) {
       switch (newClasses[i].grade) {
         case "A":
-          unWeightedGPA += 4 * newClasses[i].credit;
+          unWeightedGPA += 4.0 * newClasses[i].credit;
           break;
         case "A-":
-          unWeightedGPA += 3.67 * newClasses[i].credit;
+          unWeightedGPA += 3.667 * newClasses[i].credit;
           break;
         case "B+":
-          unWeightedGPA += 3.33 * newClasses[i].credit;
+          unWeightedGPA += 3.333 * newClasses[i].credit;
           break;
         case "B":
           unWeightedGPA += 3.0 * newClasses[i].credit;
           break;
         case "B-":
-          unWeightedGPA += 2.67 * newClasses[i].credit;
+          unWeightedGPA += 2.667 * newClasses[i].credit;
           break;
         case "C+":
-          unWeightedGPA += 2.33 * newClasses[i].credit;
+          unWeightedGPA += 2.333 * newClasses[i].credit;
           break;
         case "C":
           unWeightedGPA += 2.0 * newClasses[i].credit;
           break;
         case "C-":
-          unWeightedGPA += 1.67 * newClasses[i].credit;
+          unWeightedGPA += 1.667 * newClasses[i].credit;
           break;
         case "D+":
-          unWeightedGPA += 1.33 * newClasses[i].credit;
+          unWeightedGPA += 1.333 * newClasses[i].credit;
           break;
         case "D":
           unWeightedGPA += 1.0 * newClasses[i].credit;
           break;
         case "D-":
-          unWeightedGPA += 0.67 * newClasses[i].credit;
+          unWeightedGPA += 0.667 * newClasses[i].credit;
           break;
         case "F":
           unWeightedGPA += 0.0 * newClasses[i].credit;
@@ -298,8 +299,9 @@ export const postAcademics: RequestHandler<
         default:
           throw createHttpError(400, "Invalid grade");
       }
+      creditCounter += newClasses[i].credit;
     }
-    unWeightedGPA /= newClasses.length;
+    unWeightedGPA /= creditCounter;
     const updatedUser = await UserModel.findOneAndUpdate(
       { _id: authenticatedUserId },
       {
