@@ -299,7 +299,7 @@ export const postAcademics: RequestHandler<
           throw createHttpError(400, "Invalid grade");
       }
     }
-    unWeightedGPA /= newClasses.length;
+    unWeightedGPA /= newCredits.length;
     const updatedUser = await UserModel.findOneAndUpdate(
       { _id: authenticatedUserId },
       {
