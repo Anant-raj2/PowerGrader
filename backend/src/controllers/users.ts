@@ -355,7 +355,7 @@ export const postAcademics: RequestHandler<
     }
     unWeightedGPA /= totalCredits;
 
-    const worstClasses = newClasses.slice(-3);
+    const worstClasses = newClasses.slice(-1);
     const updatedUser = await UserModel.findOneAndUpdate(
       { _id: authenticatedUserId },
       {

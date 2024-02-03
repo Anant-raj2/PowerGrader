@@ -248,12 +248,13 @@ export const Overview = (): JSX.Element => {
               <div className="flex flex-col items-center">
                 <p className="font-normal text-gray-400 text-2xl">Rating</p>
                 <p
-                  className={`font-bold text-5xl pt-3 ${rating.rating === "Great"
+                  className={`font-bold text-5xl pt-3 ${
+                    rating.rating === "Great"
                       ? "great-text"
                       : rating.rating === "Good"
-                        ? "good-text"
-                        : "needs-improvement-text"
-                    }`}
+                      ? "good-text"
+                      : "needs-improvement-text"
+                  }`}
                 >
                   {rating.rating}
                 </p>
@@ -300,16 +301,21 @@ export const Overview = (): JSX.Element => {
             </div>
             <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg ml-4 h-59 rounded-xl w-full lg:w-96 p-8 pt-9 m-5 bg-hero-pattern bg-no-repeat bg-cover bg-center flex items-start justify-center">
               <div>
-                <p className="font-bold text-gray-400 text-2xl">
-                  Worst Classes
+                <p className="font-bold text-gray-400 text-2xl justify-center">
+                  Worst Class:
                 </p>
                 {user!.worstClasses.map((classItem: ClassItem, index) => (
-                  <p key={index}>{classItem.class}</p>
+                  <p className="font-bold text-4xl" key={index}>
+                    {classItem.class}
+                  </p>
                 ))}
               </div>
             </div>
-
-            <Button onClick={onOpen}>Open Modal</Button>
+            <div className="flex justify-end ml-[260px]">
+              <Button bg="#3751FF" color="white" onClick={onOpen}>
+                Edit Classes
+              </Button>
+            </div>
           </div>
         </div>
       </div>
