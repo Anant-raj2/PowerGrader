@@ -113,10 +113,10 @@ export const Transcript: React.FC = () => {
             justifyContent="space-between"
           >
             <Text fontSize="xl" className=" mb-2 text-white">
-              Weighted GPA: {user!.weightedGPA.toFixed(2)}
+              Weighted GPA: {user!.weightedGPA.toFixed(3)}
             </Text>
             <Text fontSize="xl" className=" mb-2 text-white">
-              Unweighted GPA: {user!.unWeightedGPA.toFixed(2)}
+              Unweighted GPA: {user!.unWeightedGPA.toFixed(3)}
             </Text>
           </Flex>
         </Box>

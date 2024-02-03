@@ -159,6 +159,39 @@ export const requestVerificationCode: RequestHandler<
   }
 };
 
+function gradeToNumber(grade: string): number {
+  switch (grade) {
+    case "A+":
+      return 4.33;
+    case "A":
+      return 4.0;
+    case "A-":
+      return 3.67;
+    case "B+":
+      return 3.33;
+    case "B":
+      return 3.0;
+    case "B-":
+      return 2.67;
+    case "C+":
+      return 2.33;
+    case "C":
+      return 2.0;
+    case "C-":
+      return 1.67;
+    case "D+":
+      return 1.33;
+    case "D":
+      return 1.0;
+    case "D-":
+      return 0.67;
+    case "F":
+      return 0.0;
+    default:
+      throw 0.0;
+  }
+}
+
 export const postAcademics: RequestHandler<
   unknown,
   unknown,
@@ -167,48 +200,56 @@ export const postAcademics: RequestHandler<
 > = async (req, res, next) => {
   const authenticatedUserId = req.session.userId;
   const gradeLevel = req.body.gradeLevel;
-
+  let totalCredits = 0;
   const class1 = req.body.class1;
   const credit1 = req.body.credit1;
   const grade1 = req.body.grade1;
+  const type1 = req.body.type1;
 
   const class2 = req.body.class2;
   const credit2 = req.body.credit2;
   const grade2 = req.body.grade2;
+  const type2 = req.body.type2;
 
   const class3 = req.body.class3;
   const credit3 = req.body.credit3;
   const grade3 = req.body.grade3;
+  const type3 = req.body.type3;
 
   const class4 = req.body.class4;
   const credit4 = req.body.credit4;
   const grade4 = req.body.grade4;
+  const type4 = req.body.type4;
 
   const class5 = req.body.class5;
   const credit5 = req.body.credit5;
   const grade5 = req.body.grade5;
+  const type5 = req.body.type5;
 
   const class6 = req.body.class6;
   const credit6 = req.body.credit6;
   const grade6 = req.body.grade6;
+  const type6 = req.body.type6;
 
   const class7 = req.body.class7;
   const credit7 = req.body.credit7;
   const grade7 = req.body.grade7;
+  const type7 = req.body.type7;
 
   const class8 = req.body.class8;
   const credit8 = req.body.credit8;
   const grade8 = req.body.grade8;
+  const type8 = req.body.type8;
 
   const newClasses = [
-    { class: class1, credit: credit1, grade: grade1 },
-    { class: class2, credit: credit2, grade: grade2 },
-    { class: class3, credit: credit3, grade: grade3 },
-    { class: class4, credit: credit4, grade: grade4 },
-    { class: class5, credit: credit5, grade: grade5 },
-    { class: class6, credit: credit6, grade: grade6 },
-    { class: class7, credit: credit7, grade: grade7 },
-    { class: class8, credit: credit8, grade: grade8 },
+    { class: class1, credit: credit1, grade: grade1, type: type1 },
+    { class: class2, credit: credit2, grade: grade2, type: type2 },
+    { class: class3, credit: credit3, grade: grade3, type: type3 },
+    { class: class4, credit: credit4, grade: grade4, type: type4 },
+    { class: class5, credit: credit5, grade: grade5, type: type5 },
+    { class: class6, credit: credit6, grade: grade6, type: type6 },
+    { class: class7, credit: credit7, grade: grade7, type: type7 },
+    { class: class8, credit: credit8, grade: grade8, type: type8 },
   ];
   try {
     if (!authenticatedUserId) {
@@ -254,10 +295,9 @@ export const postAcademics: RequestHandler<
       throw createHttpError(400, "Grades are missing");
     }
 
-    const weightedGPA = 0;
+    let weightedGPA = 0;
     let unWeightedGPA = 0;
     const rating = "";
-    let creditCounter: number = 0;
     for (let i = 0; i < newClasses.length; i++) {
       switch (newClasses[i].grade) {
         case "A":
@@ -299,9 +339,23 @@ export const postAcademics: RequestHandler<
         default:
           throw createHttpError(400, "Invalid grade");
       }
-      creditCounter += newClasses[i].credit;
+      totalCredits += newClasses[i].credit;
+      newClasses.sort(
+        (a, b) => gradeToNumber(b.grade) - gradeToNumber(a.grade)
+      );
+      if (
+        newClasses[i].type === "Weighted" &&
+        newClasses[i].grade !== "F" &&
+        newClasses[i].grade !== "D-" &&
+        newClasses[i].grade !== "D" &&
+        newClasses[i].grade !== "D+"
+      ) {
+        weightedGPA += 0.1 * newClasses[i].credit;
+      }
     }
-    unWeightedGPA /= creditCounter;
+    unWeightedGPA /= totalCredits;
+
+    const worstClasses = newClasses.slice(-3);
     const updatedUser = await UserModel.findOneAndUpdate(
       { _id: authenticatedUserId },
       {
@@ -309,8 +363,9 @@ export const postAcademics: RequestHandler<
           classes: newClasses,
           gradeLevel,
           unWeightedGPA,
-          weightedGPA,
+          weightedGPA: unWeightedGPA + weightedGPA,
           rating,
+          worstClasses: worstClasses,
         },
       },
       { new: true }
