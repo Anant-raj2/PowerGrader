@@ -1,39 +1,269 @@
-import { classes } from "../data/complete";
-import React from "react";
-import { AutoComplete } from "antd";
-import { FormLabel } from "@chakra-ui/react";
-import { Control, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import Select from "react-select";
 
-export interface ClassesAutocompleteProps {
-  name: string;
-  placeholder: string;
-  control: Control<any>;
-  label: string;
+interface Class {
+  value: string;
 }
-const ClassesAutocomplete = (props: ClassesAutocompleteProps) => {
+interface ArrayObjectSelectState {
+  selectedClass: Class | null;
+}
+const classes: Class[] = [
+  { value: "2D Animation " },
+  { value: "Applied Electricity" },
+  { value: "German I " },
+  { value: "AP Biology" },
+  { value: "Adv Digital Art & Design Illustrator" },
+  { value: "Construction I " },
+  { value: "German II " },
+  { value: "AP Chemistry" },
+  { value: "Adv Digital Art & Design Photoshop " },
+  { value: "Construction II " },
+  { value: "German III " },
+  { value: "AP Environmental Science" },
+  { value: "AP Art History " },
+  { value: "Consumer Auto & Home Maintenance " },
+  { value: "German IV " },
+  { value: "AP Physics I" },
+  { value: "AP Art Studio " },
+  { value: "Engineering Systems " },
+  { value: "German V " },
+  { value: "AP Physics C" },
+  { value: "Art 101 " },
+  { value: "Intro to AutoCAD " },
+  { value: "Spanish I " },
+  { value: "Pre‐AP Biology" },
+  { value: "Ceramics I " },
+  { value: "Intro to Machining " },
+  { value: "Spanish II " },
+  { value: "Pre‐AP Chemistry" },
+  { value: "Ceramics II  " },
+  { value: "Intro to Welding & Manufacturing " },
+  { value: "Spanish III " },
+  { value: "Earth/Space Science" },
+  { value: "Digital Art & Design " },
+  { value: "Metals 2  " },
+  { value: "Spanish IV " },
+  { value: "Fall Wisconsin Environmental Science" },
+  { value: "Drawing & Painting I " },
+  { value: "PLTW Civil Engineering & Architecture " },
+  { value: "Spanish 111/IV " },
+  { value: "Spring Wisconsin Environmental Science" },
+  { value: "Drawing & Painting II " },
+  { value: "PLTW Digital Electronics " },
+  { value: "Spanish V (CAPP) " },
+  { value: "Forensic Science" },
+  { value: "Photography I " },
+  { value: "PLTW Engineering Design & Development " },
+  { value: "Spanish Conversation thru Film & Lit " },
+  { value: "Anatomy Lab" },
+  { value: "Photography II " },
+  { value: "PLTW Intro to Engineering Design " },
+  { value: "Physiology" },
+  { value: "Photography II Enriched Virtual " },
+  { value: "PLTW Principles of Engineering " },
+  { value: "Physics" },
+  { value: "Printmaking " },
+  { value: "Saber Manufacturing I" },
+  { value: "Sculpture " },
+  { value: "Saber Manufacturing II " },
+  { value: "PLTW Biomedical Innovation" },
+  { value: "Small Engines " },
+  { value: "PLTW Human Body Systems" },
+  { value: "Accounting " },
+  { value: "Technical Innovations I " },
+  { value: "Integrated Math 2/3 " },
+  { value: "PLTW Principles of Biomedical Sci" },
+  { value: "Advanced Accounting " },
+  { value: "Technical Innovations II " },
+  { value: "AP Calculus AB " },
+  { value: "PLTW Medical Interventions" },
+  { value: "Advertising " },
+  { value: "Transportation Technology I " },
+  { value: "AP Calculus BC " },
+  { value: "Medical Terminology" },
+  { value: "Business Communications " },
+  { value: "Transportation Technology II " },
+  { value: "AP Statistics" },
+  { value: "Business Essentials " },
+  { value: "Woodworking Technology I " },
+  { value: "AP PreCalculus" },
+  { value: "Business Law " },
+  { value: "Woodworking Technology II " },
+  { value: "American Government" },
+  { value: "Career Management " },
+  { value: "Integrated Math 1 " },
+  { value: "AP European History" },
+  { value: "Launch: Business Capstone " },
+  { value: "Integrated Math 2 " },
+  { value: "AP Government" },
+  { value: "Business Management " },
+  { value: "3D Animation " },
+  { value: "Integrated Math 3 " },
+  { value: "AP Human Geography" },
+  { value: "Personal Finance " },
+  { value: "Advanced Video Production " },
+  { value: "Integrated Math 3‐A " },
+  { value: "AP Macroeconomics" },
+  { value: "Software Applications Expert " },
+  { value: "Intro to Video Production Semester " },
+  { value: "AP Psychology" },
+  { value: "Marketing " },
+  { value: "Intro to Video Production Year " },
+  { value: "Pre‐Calculus " },
+  { value: "AP US History" },
+  { value: "Video Production Company I " },
+  { value: "Contemporary Issues Around the Globe" },
+  { value: "Video Production Company II Elective Course Offerings " },
+  { value: "Economics" },
+  { value: "Exploring Foods" },
+  { value: "Computer Programming I " },
+  { value: "History of Popular Culture in America" },
+  { value: "Foods Around the World " },
+  { value: "Intro to Computer Programming " },
+  { value: "Practical Law" },
+  { value: "Foods & Fitness " },
+  { value: "Department Aide " },
+  { value: "AP Computer Science Principles " },
+  { value: "Psychology" },
+  { value: "Restaurant and Tourism Innovations " },
+  { value: "Office Aide " },
+  { value: "AP Computer Science A " },
+  { value: "Sociology" },
+  { value: "Intro to Foods HE3000S " },
+  { value: "Two World Wars" },
+  { value: "Child Dev & Healthcare" },
+  { value: "Volunteer Tutor Block Year " },
+  { value: "Concert Band " },
+  { value: "US History" },
+  { value: "Child Development I/ACCT " },
+  { value: "Jazz Ensemble " },
+  { value: "US History Honors" },
+  { value: "Child Development II/ACCT " },
+  { value: "Show Choir " },
+  { value: "World History" },
+  { value: "REACH: Revitalizing Education & Child Health " },
+  { value: "Foundations of Education " },
+  { value: "Symphonic Band " },
+  { value: "World History ‐ Honors" },
+  { value: "Independent Living " },
+  { value: "Wind Ensemble" },
+  { value: "Fashion Mrkt & Merchandize " },
+  { value: "Jazz Lab" },
+  { value: "Fashion Sewing I " },
+  { value: "Cantus" },
+  { value: "Fashion Sewing II " },
+  { value: "Pre‐AP English 1 " },
+  { value: "Cantaré " },
+  { value: "Functional Language 11, 12" },
+  { value: "Inspired Design" },
+  { value: "Cantabile" },
+  { value: "Functional Language 9, 10" },
+  { value: "Interior Design " },
+  { value: "Bella Voce Chorus " },
+  { value: "Functional Language 11, 12 Elective" },
+  { value: "CP Comp & Lit Analysis 10 " },
+  { value: "Voce Eterna " },
+  { value: "Functional Language 9, 10 Elective" },
+  { value: "CP Comp & Lit Analysis 10 Honors " },
+  { value: "Chamber Orchestra " },
+  { value: "Functional Math 11, 12" },
+  { value: "Concert Orchestra " },
+  { value: "Functional Math 9, 10" },
+  { value: "CP World Lit & Comp " },
+  { value: "Creating Music " },
+  { value: "Functional Science 11, 12" },
+  { value: "Internship ‐ Accelerator Lab Semester" },
+  { value: "CP Nonfiction Analysis & Comp " },
+  { value: "Exploring Studio Tech" },
+  { value: "Functional Science 9, 10" },
+  { value: "Internship ‐ Accelerator Lab Year " },
+  { value: "AP Language & Composition " },
+  { value: "Intro to Piano " },
+  { value: "Functional Soc. Studies 11, 12" },
+  { value: "Internship ‐ Auto Tech Semester " },
+  { value: "AP Literature & Composition " },
+  { value: "AP Music Theory" },
+  { value: "Functional Soc. Studies 9, 10" },
+  { value: "Internship ‐ Auto Tech Year " },
+  { value: "Literacy Essentials 10 Enrichment" },
+  { value: "Internship ‐ Construction Tech Semester " },
+  { value: "CP Multicultural Lit " },
+  { value: "Literacy Essentials 11, 12" },
+  { value: "Internship ‐ Construction Tech Year " },
+  { value: "CP Nonfiction Analysis & Comp " },
+  { value: "Conditioning/Weight Training I " },
+  { value: "Literacy Essentials 9 Enrichment" },
+  { value: "Internship ‐ Video Production Semester " },
+  { value: "AP Language & Composition " },
+  { value: "Conditioning/Weight Training II " },
+  { value: "Literacy Essentials 9, 10" },
+  { value: "Internship ‐ Video Production Year " },
+  { value: "AP Literature & Composition " },
+  { value: "Fitness Through Dance & Movement " },
+  { value: "Math Essentials 11, 12" },
+  { value: "Internship ‐ Special Education Semester " },
+  { value: "Individual Sports I " },
+  { value: "Math Essentials 9, 10" },
+  { value: "Internship ‐ Special Education Year " },
+  { value: "Creative Writing & Publishing " },
+  { value: "Individual Sports II " },
+  { value: "Physical Ed 11, 12 Foundations" },
+  { value: "Internship: Community Semester " },
+  { value: "Film as Literature " },
+  { value: "Intro to Physical Ed " },
+  { value: "Physical Ed 9, 10 Foundations" },
+  { value: "Internship: Community Year " },
+  { value: "PROWL I ‐ Peer Review & Online Writing Lab " },
+  { value: "Lifeguard Training " },
+  { value: "Science Essentials 11, 12" },
+  { value: "Internship: FHS Semester " },
+  { value: "PROWL II ‐ Peer Review & Online Writing Lab " },
+  { value: "Personal Wellness & Fitness " },
+  { value: "Science Essentials 9, 10" },
+  { value: "Internship: FHS Year " },
+  { value: "The Impact of Sports in Society " },
+  { value: "Team Sports I " },
+  { value: "Social Studies Essentials 11, 12" },
+  { value: "Professional Service Learning Semester " },
+  { value: "Team Sports II " },
+  { value: "Social Studies Essentials 9, 10" },
+  { value: "Youth Apprenticeship " },
+  { value: "Study Skills" },
+  { value: "Physical Ed 12 Elective " },
+  { value: "Transition: Functional Life Skills 11, 12" },
+  { value: "Junior/Senior Health " },
+  { value: "Physical Ed Aide Semester " },
+  { value: "Transition: Functional Life Skills 9, 10" },
+  { value: "AP Research " },
+  { value: "Physical Ed Aide Year " },
+  { value: "Transition: Life Skills 11, 12" },
+  { value: "AP Seminar " },
+  { value: "Physical Ed Lifeguard Semester " },
+  { value: "Transition: Life Skills 9, 10" },
+  { value: "Physical Ed Lifeguard Year " },
+  { value: "Transition: Recreation & Leisure 11, 12" },
+  { value: "Independent Living " },
+  { value: "Physical Ed Lifeguard Teaching Asst " },
+  { value: "Transition: Recreation & Leisure 9, 10" },
+  { value: "Personal Finance " },
+  { value: "Officiating Sports" },
+];
+export default function Autocomplete() {
+  const [search, setSearch] = useState<ArrayObjectSelectState>({
+    selectedClass: null,
+  });
+
   return (
-    <Controller
-      name={props.name}
-      control={props.control}
-      rules={{ required: "This field is required." }}
-      render={({ field, fieldState }) => {
-        return (
-          <>
-            <FormLabel>{props.label}</FormLabel>
-            <AutoComplete
-              style={{ width: 200, height: 39 }}
-              options={classes}
-              placeholder={props.placeholder}
-              filterOption={(inputValue, option) =>
-                option!.value
-                  .toUpperCase()
-                  .indexOf(inputValue.toUpperCase()) !== -1
-              }
-            />
-          </>
-        );
-      }}
-    />
+      <Select
+        value={search.selectedClass}
+        onChange={(option: Class | null) => {
+          setSearch({ selectedClass: option });
+        }}
+        getOptionLabel={(vehicle: Class) => vehicle.value}
+        getOptionValue={(vehicle: Class) => vehicle.value}
+        options={classes}
+        isClearable={true}
+        backspaceRemovesValue={true}
+      />
   );
-};
-export default ClassesAutocomplete;
+}

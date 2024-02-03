@@ -23,6 +23,7 @@ const UserSchema = new Schema({
         class: { type: String, required: true },
         credit: { type: Number, required: true },
         grade: { type: String, required: true },
+        type: { type: String, required: true },
     },
 ],
 }, {timestamps: true});

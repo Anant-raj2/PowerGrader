@@ -15,8 +15,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as UserApi from "../../networks/api/user_api";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
-import { BadRequestError } from '../../networks/http-errors';
+import { useNavigate } from "react-router-dom";
+import { BadRequestError } from "../../networks/http-errors";
 
 const validationSchema = yup.object({
   gradeLevel: yup.number().required("Field is required"),
@@ -24,34 +24,42 @@ const validationSchema = yup.object({
   class1: yup.string().max(21).required("Field is required"),
   credit1: yup.number().positive().required("Field is required"),
   grade1: yup.string().max(2).required("Field is required"),
+  type1: yup.string().max(21).required("Field is required"),
 
   class2: yup.string().max(21).required("Field is required"),
   credit2: yup.number().required("Field is required"),
   grade2: yup.string().max(2).required("Field is required"),
+  type2: yup.string().max(21).required("Field is required"),
 
   class3: yup.string().max(21).required("Field is required"),
   credit3: yup.number().required("Field is required"),
   grade3: yup.string().max(2).required("Field is required"),
+  type3: yup.string().max(21).required("Field is required"),
 
   class4: yup.string().max(21).required("Field is required"),
   credit4: yup.number().required("Field is required"),
   grade4: yup.string().max(2).required("Field is required"),
+  type4: yup.string().max(21).required("Field is required"),
 
   class5: yup.string().max(21).required("Field is required"),
   credit5: yup.number().required("Field is required"),
   grade5: yup.string().max(2).required("Field is required"),
+  type5: yup.string().max(21).required("Field is required"),
 
   class6: yup.string().max(21).required("Field is required"),
   credit6: yup.number().required("Field is required"),
   grade6: yup.string().max(2).required("Field is required"),
+  type6: yup.string().max(21).required("Field is required"),
 
   class7: yup.string().max(21).required("Field is required"),
   credit7: yup.number().required("Field is required"),
   grade7: yup.string().max(2).required("Field is required"),
+  type7: yup.string().max(21).required("Field is required"),
 
   class8: yup.string().max(21).required("Field is required"),
   credit8: yup.number().required("Field is required"),
   grade8: yup.string().max(2).required("Field is required"),
+  type8: yup.string().max(21).required("Field is required"),
 });
 
 type ClassData = yup.InferType<typeof validationSchema>;
@@ -108,14 +116,14 @@ export function Onboarding() {
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class1 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class1")} />
+                <Input placeholder=" " {...register("class1")} />
                 <FormErrorMessage>
                   {errors.class1 && errors.class1.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit1 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit1")}>
+                <Select placeholder=" " {...register("credit1")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -126,7 +134,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade1 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade1")}>
+                <Select placeholder=" " {...register("grade1")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -144,18 +152,29 @@ export function Onboarding() {
                   {errors.grade1 && errors.grade1.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type1 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type1")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type1 && errors.type1.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class2 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class2")} />
+                <Input placeholder=" " {...register("class2")} />
                 <FormErrorMessage>
                   {errors.class2 && errors.class2.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit2 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit2")}>
+                <Select placeholder=" " {...register("credit2")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -166,7 +185,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade2 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade2")}>
+                <Select placeholder=" " {...register("grade2")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -184,18 +203,29 @@ export function Onboarding() {
                   {errors.grade2 && errors.grade2.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type2 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type2")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type2 && errors.type2.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class3 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class3")} />
+                <Input placeholder=" " {...register("class3")} />
                 <FormErrorMessage>
                   {errors.class3 && errors.class3.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit3 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit3")}>
+                <Select placeholder=" " {...register("credit3")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -206,7 +236,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade3 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade3")}>
+                <Select placeholder=" " {...register("grade3")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -224,18 +254,29 @@ export function Onboarding() {
                   {errors.grade3 && errors.grade3.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type3 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type3")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type3 && errors.type3.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class4 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class4")} />
+                <Input placeholder=" " {...register("class4")} />
                 <FormErrorMessage>
                   {errors.class4 && errors.class4.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit4 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit4")}>
+                <Select placeholder=" " {...register("credit4")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -246,7 +287,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade4 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade4")}>
+                <Select placeholder=" " {...register("grade4")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -264,18 +305,29 @@ export function Onboarding() {
                   {errors.grade4 && errors.grade4.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type4 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type4")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type4 && errors.type4.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class5 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class5")} />
+                <Input placeholder=" " {...register("class5")} />
                 <FormErrorMessage>
                   {errors.class5 && errors.class5.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit5 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit5")}>
+                <Select placeholder=" " {...register("credit5")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -286,7 +338,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade5 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade5")}>
+                <Select placeholder=" " {...register("grade5")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -304,18 +356,29 @@ export function Onboarding() {
                   {errors.grade5 && errors.grade5.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type5 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type5")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type5 && errors.type5.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class6 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class6")} />
+                <Input placeholder=" " {...register("class6")} />
                 <FormErrorMessage>
                   {errors.class6 && errors.class6.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit6 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit6")}>
+                <Select placeholder=" " {...register("credit6")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -326,7 +389,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade6 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade6")}>
+                <Select placeholder=" " {...register("grade6")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -344,18 +407,29 @@ export function Onboarding() {
                   {errors.grade6 && errors.grade6.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type6 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type6")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type6 && errors.type6.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class7 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class7")} />
+                <Input placeholder=" " {...register("class7")} />
                 <FormErrorMessage>
                   {errors.class7 && errors.class7.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit7 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit7")}>
+                <Select placeholder=" " {...register("credit7")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -366,7 +440,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade7 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade7")}>
+                <Select placeholder=" " {...register("grade7")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -384,18 +458,29 @@ export function Onboarding() {
                   {errors.grade7 && errors.grade7.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.type7 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type7")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type7 && errors.type7.message}
+                </FormErrorMessage>
+              </FormControl>
             </div>
             <div className="flex flex-row space-x-7 justify-center">
               <FormControl isInvalid={errors.class8 && true}>
                 <FormLabel>Class</FormLabel>
-                <Input placeholder="Class" {...register("class8")} />
+                <Input placeholder=" " {...register("class8")} />
                 <FormErrorMessage>
                   {errors.class8 && errors.class8.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.credit8 && true}>
                 <FormLabel>Credits</FormLabel>
-                <Select placeholder="Credits" {...register("credit8")}>
+                <Select placeholder=" " {...register("credit8")}>
                   <option value={0.5}>0.5</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -406,7 +491,7 @@ export function Onboarding() {
               </FormControl>
               <FormControl isInvalid={errors.grade8 && true}>
                 <FormLabel>Grade</FormLabel>
-                <Select placeholder="Grades" {...register("grade8")}>
+                <Select placeholder=" " {...register("grade8")}>
                   <option value="A">A</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -422,6 +507,17 @@ export function Onboarding() {
                 </Select>
                 <FormErrorMessage>
                   {errors.grade8 && errors.grade8.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={errors.type8 && true}>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder=" " {...register("type8")}>
+                  <option value="Regular">Regular</option>
+                  <option value="Weighted">Weighted</option>
+                </Select>
+                <FormErrorMessage>
+                  {errors.type8 && errors.type8.message}
                 </FormErrorMessage>
               </FormControl>
             </div>
