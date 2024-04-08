@@ -42,8 +42,8 @@ export const Booster: React.FC = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            // Add your OpenAI API key here
+            Authorization: "Bearer ",
           },
         }
       );
