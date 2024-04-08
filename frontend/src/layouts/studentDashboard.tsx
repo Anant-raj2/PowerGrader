@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
-import {
-  Overview,
-  Transcript,
-  Booster,
-} from "../screens/index";
+import { Overview, Transcript, Booster } from "../screens/index";
 import { Navbar, Sidebar } from "../components/index";
 import { useStateContext } from "../context/ContextProvider";
 import { Theme } from "../context/ContextProvider";
